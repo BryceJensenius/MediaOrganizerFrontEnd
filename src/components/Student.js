@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container, Paper, Button, Typography } from '@mui/material';
 
+
 export default function Student() {
     const paperStyle = { padding: '50px 30px', width: 600, margin: "20px auto" };
     const [name, setName] = useState('John May');
@@ -19,6 +20,7 @@ export default function Student() {
             body: JSON.stringify(student)
         }).then(() => {
             console.log("New Student Added");
+            window.location.reload();
         });
     };
 
