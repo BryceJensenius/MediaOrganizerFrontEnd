@@ -12,7 +12,7 @@ export default function Appbar() {
       <AppBar position="static">
         <Toolbar>
           <IconButton
-            size="large"
+            size="small"
             edge="start"
             color="inherit"
             aria-label="menu"
@@ -21,7 +21,7 @@ export default function Appbar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Media Organizer
+            <span className="bold-light-blue">Media Organizer</span>
           </Typography>
         </Toolbar>
       </AppBar>

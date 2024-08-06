@@ -2,36 +2,44 @@ import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container, Paper, Button, Typography } from '@mui/material';
+import '../styles/style.css';
 
 
 export default function Student() {
     const paperStyle = { padding: '50px 30px', width: 600, margin: "20px auto" };
-    const [name, setName] = useState('John May');
+    const [name, setName] = useState('');
     const [finishDate, setFinishDate] = useState('');
     const [rating, setRating] = useState('');
     const [review, setReview] = useState('');
-    const [students, setStudents] = useState([]);
+    const [media, setMedia] = useState([]);
 
     const handleClick = (e) => {
         e.preventDefault();
+
+        // Validation check
+        if (name.trim() === '') {
+            alert("Name field cannot be empty");
+            return;
+        }
+        
         const mediaItem = { name, finishDate, rating, review };
         console.log(mediaItem);
-        fetch("http://localhost:8080/student/add", {
+        fetch("http://localhost:8080/mediaItems/add", {
             method: "POST",
             headers: { "Content-Type": "Application/json" },
             body: JSON.stringify(mediaItem)
         }).then(() => {
-            console.log("New Student Added");
+            console.log("New Media Item Added");
             window.location.reload();
         });
     };
 
     //this runs on rendering, because we reload when the button is clicked, it reloads each time a new item is added
     useEffect(() => {
-        fetch("http://localhost:8080/student/getAll")
+        fetch("http://localhost:8080/mediaItems/getAll")
             .then(res => res.json())
             .then((result) => {
-                setStudents(result);
+                setMedia(result);
             });
     }, []);
 
@@ -61,13 +69,13 @@ export default function Student() {
                         component="h1"
                         sx={{
                             fontFamily: 'Arial, serif',
-                            color: "#1E90FF",
+                            color: "black",
                             textAlign: "center",
                             marginBottom: 2,
                             fontWeight: 'bold',
                         }}
                     >
-                        Add Student
+                        Add Media
                     </Typography>
                     <Box sx={{ mb: 2 }}>
                         <TextField 
@@ -109,7 +117,7 @@ export default function Student() {
                             onChange={(e) => setReview(e.target.value)}
                         />
                     </Box>
-                    <Button variant="contained" color="secondary" onClick={handleClick}>
+                    <Button variant="contained" color="primary" onClick={handleClick}>
                         Submit Input
                     </Button>
                 </Paper>
@@ -126,14 +134,16 @@ export default function Student() {
                             fontWeight: 'bold',
                         }}
                     >
-                        Students
+                        Media
                     </Typography>
-                    {students.map(mediaItem => (
+                    {media.map(mediaItem => (
                         <Paper elevation={1} style={{ margin: "10px", padding: "15px", textAlign: "left" }} key={mediaItem.id}>
-                            ID: {mediaItem.id}<br />
-                            Name: {mediaItem.name}<br />
-                            Address: {mediaItem.address}
+                            <span className="bold-green">Name:</span><span className="light-bold"> {mediaItem.name}</span><br />
+                            <span className="light-bold-green">Finish Date:</span> {mediaItem.finishDate}<br />
+                            <span className="light-bold-green">Rating:</span> {mediaItem.rating}<br />
+                            <span className="light-bold-green">Review:</span> <br />{mediaItem.review}
                         </Paper>
+                    
                     ))}
                 </Paper>
             </Box>
