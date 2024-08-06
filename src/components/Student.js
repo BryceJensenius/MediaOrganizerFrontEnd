@@ -7,23 +7,26 @@ import { Container, Paper, Button, Typography } from '@mui/material';
 export default function Student() {
     const paperStyle = { padding: '50px 30px', width: 600, margin: "20px auto" };
     const [name, setName] = useState('John May');
-    const [address, setAddress] = useState('');
+    const [finishDate, setFinishDate] = useState('');
+    const [rating, setRating] = useState('');
+    const [review, setReview] = useState('');
     const [students, setStudents] = useState([]);
 
     const handleClick = (e) => {
         e.preventDefault();
-        const student = { name, address };
-        console.log(student);
+        const mediaItem = { name, finishDate, rating, review };
+        console.log(mediaItem);
         fetch("http://localhost:8080/student/add", {
             method: "POST",
             headers: { "Content-Type": "Application/json" },
-            body: JSON.stringify(student)
+            body: JSON.stringify(mediaItem)
         }).then(() => {
             console.log("New Student Added");
             window.location.reload();
         });
     };
 
+    //this runs on rendering, because we reload when the button is clicked, it reloads each time a new item is added
     useEffect(() => {
         fetch("http://localhost:8080/student/getAll")
             .then(res => res.json())
@@ -32,6 +35,7 @@ export default function Student() {
             });
     }, []);
 
+    //extra boxes are added simply to space out elements
     return (
         <Container 
             maxWidth="md" 
@@ -68,7 +72,7 @@ export default function Student() {
                     <Box sx={{ mb: 2 }}>
                         <TextField 
                             id="outlined-basic-name" 
-                            label="Student Name" 
+                            label="Media Name" 
                             variant="outlined" 
                             fullWidth 
                             value={name}
@@ -77,12 +81,32 @@ export default function Student() {
                     </Box>
                     <Box sx={{ mb: 2 }}>
                         <TextField 
-                            id="outlined-basic-address" 
-                            label="Student Address" 
+                            id="outlined-basic-finishDate" 
+                            label="Media Finish Date" 
                             variant="outlined" 
                             fullWidth 
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
+                            value={finishDate}
+                            onChange={(e) => setFinishDate(e.target.value)}
+                        />
+                    </Box>
+                    <Box sx={{ mb: 2 }}>
+                        <TextField 
+                            id="outlined-basic-rating" 
+                            label="Media Rating" 
+                            variant="outlined" 
+                            fullWidth 
+                            value={rating}
+                            onChange={(e) => setRating(e.target.value)}
+                        />
+                    </Box>
+                    <Box sx={{ mb: 2 }}>
+                        <TextField 
+                            id="outlined-basic-review" 
+                            label="Media Review" 
+                            variant="outlined" 
+                            fullWidth 
+                            value={review}
+                            onChange={(e) => setReview(e.target.value)}
                         />
                     </Box>
                     <Button variant="contained" color="secondary" onClick={handleClick}>
@@ -104,11 +128,11 @@ export default function Student() {
                     >
                         Students
                     </Typography>
-                    {students.map(student => (
-                        <Paper elevation={1} style={{ margin: "10px", padding: "15px", textAlign: "left" }} key={student.id}>
-                            ID: {student.id}<br />
-                            Name: {student.name}<br />
-                            Address: {student.address}
+                    {students.map(mediaItem => (
+                        <Paper elevation={1} style={{ margin: "10px", padding: "15px", textAlign: "left" }} key={mediaItem.id}>
+                            ID: {mediaItem.id}<br />
+                            Name: {mediaItem.name}<br />
+                            Address: {mediaItem.address}
                         </Paper>
                     ))}
                 </Paper>
