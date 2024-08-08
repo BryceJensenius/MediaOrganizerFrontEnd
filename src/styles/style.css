@@ -1,0 +1,19 @@
+.bold-green {
+    font-weight: 700;
+    color: rgb(1, 104, 1);
+}
+
+.light-bold {
+    font-weight: 400;
+    color: rgb(0, 0, 0);
+}
+
+.light-bold-green {
+    font-weight: 500;
+    color: green;
+}
+
+.bold-light-blue {
+    font-weight: 600;
+    color: rgb(255, 255, 255);
+}

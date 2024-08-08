@@ -1,7 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import Appbar from './components/Appbar';
-import Student from './components/Student'
+import Student from './components/MediaHandler';
 //stop stealing my code with inspect 
 //     .-''''''-.
 //   .'          '.
