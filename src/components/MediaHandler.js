@@ -14,7 +14,6 @@ export default function MediaHandler() {
     const [media, setMedia] = useState([]);
     const [visibleReviewId, setVisibleReviewId] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [searchStatus, setSearchStatus] = useState('');
 
     const getMedia = () => {
         setLoading(true);
@@ -56,20 +55,18 @@ export default function MediaHandler() {
         getMedia();
     }, []);
 
-    const [nameFilter, setFilter] = useState('');
+    const [nameFilter, setNameFilter] = useState('');
+    const [ratingFilter, setRatingFilter] = useState('');
 
     const handleFilterClick = (e) => {
         e.preventDefault();
         setLoading(true);
-        setSearchStatus('Searching...');
         fetch("http://localhost:8080/mediaItems/setFilter", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ filter: nameFilter })
+            body: JSON.stringify({ nameFilter: nameFilter, ratingFilter: ratingFilter})
         }).then(() => {
             getMedia();
-            setSearchStatus('Search completed');
-            setTimeout(() => setSearchStatus(''), 2000);
         });
     };
 
@@ -152,59 +149,6 @@ export default function MediaHandler() {
                 </Paper>
             </Box>
 
-            {/* Filter Selection Component */}
-            <Container 
-                maxWidth="md" 
-                sx={{
-                    display: 'flex', 
-                    flexDirection: 'column', 
-                    alignItems: '', 
-                    justifyContent: '', 
-                }}
-            >
-                <Box
-                    component="form"
-                    sx={{
-                        '& > :not(style)': { m: 1, width: '25ch' },
-                    }}
-                    noValidate
-                    autoComplete="off"
-                >
-                    <Paper elevation={5} style={paperStyle}>
-                        <Typography 
-                            variant="h4" 
-                            component="h1"
-                            sx={{
-                                fontFamily: 'Arial, serif',
-                                color: "black",
-                                textAlign: "center",
-                                marginBottom: 2,
-                                fontWeight: 'bold',
-                            }}
-                        >
-                            Filter Media
-                        </Typography>
-                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                            <TextField 
-                                id="outlined-basic-name" 
-                                label="Name Filter" 
-                                variant="outlined" 
-                                fullWidth 
-                                value={nameFilter}
-                                onChange={(e) => setFilter(e.target.value)}
-                                onKeyPress={handleFilterKeyPress}
-                            />
-                            <Button variant="contained" color="primary" onClick={handleFilterClick} sx={{ ml: 1 }}>
-                                Search
-                            </Button>
-                            {loading && <CircularProgress size={24} sx={{ ml: 2 }} />}
-                        </Box>
-                        <Typography variant="body2" sx={{ mt: 1, color: 'green' }}>{searchStatus}</Typography>
-                    </Paper>
-                </Box>
-            </Container>
-            {/* FILTER STUFF END */}
-
             {/* Media List Paper */}
             <Paper elevation={3} style={paperStyle}>
                 <Typography 
@@ -220,6 +164,51 @@ export default function MediaHandler() {
                 >
                     Media
                 </Typography>
+                {/* Filter Selection Component */}
+            <Container 
+                maxWidth="md" 
+                sx={{
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: '', 
+                    justifyContent: '', 
+                }}
+            >
+                <Box
+                    component="form"
+                    sx={{
+                        '& > :not(style)': { m: 1, width: '62ch' },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                >
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                        <TextField 
+                            id="outlined-basic-name" 
+                            label="Name Filter" 
+                            variant="standard" 
+                            fullWidth 
+                            value={nameFilter}
+                            onChange={(e) => setNameFilter(e.target.value)}
+                            onKeyPress={handleFilterKeyPress}
+                        />
+                        <TextField 
+                            id="outlined-basic-name" 
+                            label="Rating Filter" 
+                            variant="standard" 
+                            fullWidth 
+                            value={ratingFilter}
+                            onChange={(e) => setRatingFilter(e.target.value)}
+                            onKeyPress={handleFilterKeyPress}
+                        />
+                        <Button variant="contained" color="primary" onClick={handleFilterClick} sx={{ ml: 1 }}>
+                            Search
+                        </Button>
+                        {loading && <CircularProgress size={1} sx={{ ml: 2 }} />}
+                    </Box>
+                </Box>
+            </Container>
+            {/* FILTER STUFF END */}
                 {media.map(mediaItem => (
                     <Paper 
                         elevation={1} 
