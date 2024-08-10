@@ -17,3 +17,30 @@
     font-weight: 600;
     color: rgb(255, 255, 255);
 }
+
+/* styles.css */
+.MuiButton-root.greenButton {
+    background-color: green !important;  /* Override default background */
+    color: white !important;             /* Override default text color */
+    padding: 4px 8px !important;         /* Override padding */
+    font-size: 0.75rem !important;       /* Override font size */
+    border: none !important;             /* Remove border */
+    border-radius: 15px !important;       /* Rounded corners */
+}
+
+.MuiButton-root.greenButton:hover {
+    background-color: darkgreen !important; /* Darker green on hover */
+}
+
+.MuiButton-root.redButton {
+    background-color: red !important;  /* Override default background */
+    color: white !important;             /* Override default text color */
+    padding: 4px 8px !important;         /* Override padding */
+    font-size: 0.75rem !important;       /* Override font size */
+    border: none !important;             /* Remove border */
+    border-radius: 15px !important;       /* Rounded corners */
+}
+
+.MuiButton-root.redButton:hover {
+    background-color: darkred !important; /* Darker green on hover */
+}

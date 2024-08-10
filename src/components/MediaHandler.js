@@ -14,6 +14,9 @@ export default function MediaHandler() {
     const [media, setMedia] = useState([]);
     const [visibleReviewId, setVisibleReviewId] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [editingMedia, setEditing] = useState(false);
+    const [nameFilter, setNameFilter] = useState('');
+    const [ratingFilter, setRatingFilter] = useState('');
 
     const getMedia = () => {
         setLoading(true);
@@ -32,8 +35,14 @@ export default function MediaHandler() {
             alert("Name field cannot be empty");
             return;
         }
-
         const mediaItem = { name, finishDate, rating, review };
+
+        {/* if the element is one that was being edited, set an ID and it automatically saves changes rather than creating a new element*/}
+        if(editingMedia){
+            mediaItem.id = visibleReviewId;
+            setEditing(false);
+        }
+
         fetch("http://localhost:8080/mediaItems/add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -48,15 +57,15 @@ export default function MediaHandler() {
     };
 
     const toggleReviewVisibility = (id) => {
-        setVisibleReviewId(visibleReviewId === id ? null : id);
+        {/*Cant go into other elements while editing one*/}
+        if(!editingMedia){
+            setVisibleReviewId(visibleReviewId === id ? null : id);
+        }
     };
 
     useEffect(() => {
         getMedia();
     }, []);
-
-    const [nameFilter, setNameFilter] = useState('');
-    const [ratingFilter, setRatingFilter] = useState('');
 
     const handleFilterClick = (e) => {
         e.preventDefault();
@@ -74,6 +83,30 @@ export default function MediaHandler() {
         if (e.key === 'Enter') {
             handleFilterClick(e);
         }
+    };
+
+    const handleEditClick = (id) => {
+        fetch(`http://localhost:8080/mediaItems/getById/${id}`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        })
+        .then(res => res.json())
+        .then((result) => {
+            setEditing(true);
+            setName(result.name);
+            setFinishDate(result.finishDate);
+            setRating(result.rating);
+            setReview(result.review);
+            setVisibleReviewId(id); {/*Hitting edit minimizes item, reopen it*/}
+        });
+    };
+    
+    const cancelEdit = () => {
+        setEditing(false);
+        setName('');
+        setFinishDate('');
+        setRating('');
+        setReview('');
     };
 
     return (
@@ -164,64 +197,79 @@ export default function MediaHandler() {
                 >
                     Media
                 </Typography>
+
                 {/* Filter Selection Component */}
-            <Container 
-                maxWidth="md" 
-                sx={{
-                    display: 'flex', 
-                    flexDirection: 'column', 
-                    alignItems: '', 
-                    justifyContent: '', 
-                }}
-            >
-                <Box
-                    component="form"
+                <Container 
+                    maxWidth="md" 
                     sx={{
-                        '& > :not(style)': { m: 1, width: '62ch' },
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        alignItems: '', 
+                        justifyContent: '', 
                     }}
-                    noValidate
-                    autoComplete="off"
                 >
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                        <TextField 
-                            id="outlined-basic-name" 
-                            label="Name Filter" 
-                            variant="standard" 
-                            fullWidth 
-                            value={nameFilter}
-                            onChange={(e) => setNameFilter(e.target.value)}
-                            onKeyPress={handleFilterKeyPress}
-                        />
-                        <TextField 
-                            id="outlined-basic-name" 
-                            label="Rating Filter" 
-                            variant="standard" 
-                            fullWidth 
-                            value={ratingFilter}
-                            onChange={(e) => setRatingFilter(e.target.value)}
-                            onKeyPress={handleFilterKeyPress}
-                        />
-                        <Button variant="contained" color="primary" onClick={handleFilterClick} sx={{ ml: 1 }}>
-                            Search
-                        </Button>
-                        {loading && <CircularProgress size={1} sx={{ ml: 2 }} />}
+                    <Box
+                        component="form"
+                        sx={{
+                            '& > :not(style)': { m: 1, width: '62ch' },
+                        }}
+                        noValidate
+                        autoComplete="off"
+                    >
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                            <TextField 
+                                id="outlined-basic-name" 
+                                label="Name Filter" 
+                                variant="standard" 
+                                fullWidth 
+                                value={nameFilter}
+                                onChange={(e) => setNameFilter(e.target.value)}
+                                onKeyPress={handleFilterKeyPress}
+                            />
+                            <TextField 
+                                id="outlined-basic-name" 
+                                label="Rating Filter" 
+                                variant="standard" 
+                                fullWidth 
+                                value={ratingFilter}
+                                onChange={(e) => setRatingFilter(e.target.value)}
+                                onKeyPress={handleFilterKeyPress}
+                            />
+                            <Button variant="contained" color="primary" onClick={handleFilterClick} sx={{ ml: 1 }}>
+                                Search
+                            </Button>
+                            {loading && <CircularProgress size={1} sx={{ ml: 2 }} />}
+                        </Box>
                     </Box>
-                </Box>
-            </Container>
-            {/* FILTER STUFF END */}
+                </Container>
+
+                {/* FILTER STUFF END */}
                 {media.map(mediaItem => (
                     <Paper 
                         elevation={1} 
                         style={{ margin: "5px", padding: "5px", textAlign: "left", cursor: "pointer" }} 
                         key={mediaItem.id}
+                        onMouseEnter={() => toggleReviewVisibility(mediaItem.id)}
                         onClick={() => toggleReviewVisibility(mediaItem.id)}
                     >
                         <span className="bold-green">Name:</span><span className="light-bold"> {mediaItem.name}</span><br />
                         <span className="light-bold-green">Rating:</span> {mediaItem.rating}<br />
                         {visibleReviewId === mediaItem.id && (
                             <>
-                                <span className="light-bold-green">Finish Date:</span> {mediaItem.finishDate}<br />
-                                <span className="light-bold-green">Review:</span><br />{mediaItem.review}
+                                <Box sx={{ mb: 1 }}>
+                                    <span className="light-bold-green">Finish Date:</span> {mediaItem.finishDate}<br />
+                                    <span className="light-bold-green">Review:</span><br />{mediaItem.review}<br />
+                                </Box>
+                                {!editingMedia && (
+                                    <>
+                                        <Button onClick={() => handleEditClick(mediaItem.id)} className="greenButton">Edit</Button>
+                                    </>
+                                )}
+                                {editingMedia && (
+                                    <>
+                                        <Button onClick={cancelEdit} className="redButton">Cancel</Button>
+                                    </>
+                                )}
                             </>
                         )}
                     </Paper>
