@@ -112,19 +112,17 @@ export default function MediaHandler() {
     return (
         <Container 
             maxWidth="md" 
-            className='backgroundStyle'
             sx={{
                 display: 'flex', 
                 flexDirection: 'column', 
                 alignItems: 'center',
                 justifyContent: 'flex-start', 
-                minHeight: '100vh',
-                minWidth: '100vw',
+                minHeight: '100vh'
             }}
         >
             {/* Add Media Paper */}
             <Box component="form" noValidate autoComplete="off">
-                <Paper elevation={5} style={paperStyle} className='addMediaStyle'>
+                <Paper elevation={5} style={paperStyle}>
                     <Typography 
                         variant="h4" 
                         component="h1"
@@ -185,7 +183,7 @@ export default function MediaHandler() {
             </Box>
 
             {/* Media List Paper */}
-            <Paper elevation={3} style={paperStyle} className='addMediaStyle'>
+            <Paper elevation={3} style={paperStyle}>
                 <Typography 
                     variant="h4" 
                     component="h1"
@@ -250,7 +248,6 @@ export default function MediaHandler() {
                     <Paper 
                         elevation={1} 
                         style={{ margin: "5px", padding: "5px", textAlign: "left", cursor: "pointer" }} 
-                        className='addMediaStyle'
                         key={mediaItem.id}
                         onMouseEnter={() => toggleReviewVisibility(mediaItem.id)}
                         onClick={() => toggleReviewVisibility(mediaItem.id)}

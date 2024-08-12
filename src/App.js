@@ -15,7 +15,7 @@ import Student from './components/MediaHandler';
 function App() {
   return (
     <div className="App">
-    <Appbar/>
+
     <Student/>
     </div>
   );
