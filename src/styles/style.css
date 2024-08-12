@@ -20,16 +20,29 @@
 
 /* styles.css */
 .MuiButton-root.greenButton {
-    background-color: green !important;  /* Override default background */
-    color: white !important;             /* Override default text color */
-    padding: 4px 8px !important;         /* Override padding */
-    font-size: 0.75rem !important;       /* Override font size */
-    border: none !important;             /* Remove border */
-    border-radius: 15px !important;       /* Rounded corners */
+    background-color: #4caf50 !important;  /* Use Material-UI's green color */
+    color: white !important;
+    padding: 8px 16px !important;
+    font-size: 0.875rem !important;
+    border-radius: 20px !important;       /* Rounded corners */
+    transition: background-color 0.3s ease !important; /* Smooth transition */
 }
 
 .MuiButton-root.greenButton:hover {
-    background-color: darkgreen !important; /* Darker green on hover */
+    background-color: #388e3c !important; /* Darker green on hover */
+}
+
+.MuiButton-root.greenButtonSearch {
+    background-color: #4caf50 !important;  /* Use Material-UI's green color */
+    color: white !important;
+    padding: 2px 12px !important;
+    font-size: 0.875rem !important;
+    border-radius: 8px !important;       /* Rounded corners */
+    transition: background-color 0.3s ease !important; /* Smooth transition */
+}
+
+.MuiButton-root.greenButtonSearch:hover {
+    background-color: #388e3c !important; /* Darker green on hover */
 }
 
 .MuiButton-root.redButton {
@@ -43,4 +56,15 @@
 
 .MuiButton-root.redButton:hover {
     background-color: darkred !important; /* Darker green on hover */
+}
+
+.mediaItem {
+    margin: 10px 0;
+    padding: 10px;
+    text-align: left;
+    cursor: pointer;
+    background-color: #fafafa;
+    border-left: 4px solid #4caf50;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }

@@ -131,7 +131,7 @@ export default function MediaHandler() {
                             color: "black",
                             textAlign: "center",
                             marginBottom: 2,
-                            fontWeight: 'bold',
+                            fontWeight: '400',
                         }}
                     >
                         Add Media
@@ -176,7 +176,7 @@ export default function MediaHandler() {
                             onChange={(e) => setReview(e.target.value)}
                         />
                     </Box>
-                    <Button variant="contained" color="primary" onClick={handleClick}>
+                    <Button variant="contained" className="greenButton" onClick={handleClick}>
                         Submit Input
                     </Button>
                 </Paper>
@@ -192,7 +192,7 @@ export default function MediaHandler() {
                         color: "#222222",
                         textAlign: "center",
                         marginBottom: 2,
-                        fontWeight: 'bold',
+                        fontWeight: '400',
                     }}
                 >
                     Media
@@ -235,9 +235,13 @@ export default function MediaHandler() {
                                 onChange={(e) => setRatingFilter(e.target.value)}
                                 onKeyPress={handleFilterKeyPress}
                             />
-                            <Button variant="contained" color="primary" onClick={handleFilterClick} sx={{ ml: 1 }}>
-                                Search
-                            </Button>
+                            <Button 
+                            variant="contained" 
+                            className="greenButtonSearch" 
+                            onClick={handleFilterClick}
+                        >
+                            Search
+                        </Button>
                             {loading && <CircularProgress size={1} sx={{ ml: 2 }} />}
                         </Box>
                     </Box>
@@ -247,9 +251,8 @@ export default function MediaHandler() {
                 {media.map(mediaItem => (
                     <Paper 
                         elevation={1} 
-                        style={{ margin: "5px", padding: "5px", textAlign: "left", cursor: "pointer" }} 
+                        className="mediaItem" 
                         key={mediaItem.id}
-                        onMouseEnter={() => toggleReviewVisibility(mediaItem.id)}
                         onClick={() => toggleReviewVisibility(mediaItem.id)}
                     >
                         <span className="bold-green">Name:</span><span className="light-bold"> {mediaItem.name}</span><br />
