@@ -16,7 +16,7 @@ export default function Appbar() {
             edge="start"
             color="inherit"
             aria-label="menu"
-            sx={{ mr: -2 }}
+            sx={{ mr: -4.5 }}
           >
             <MenuIcon />
           </IconButton>
