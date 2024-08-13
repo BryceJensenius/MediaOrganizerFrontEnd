@@ -18,6 +18,19 @@ export default function MediaHandler() {
     const [nameFilter, setNameFilter] = useState('');
     const [ratingFilter, setRatingFilter] = useState('');
 
+    {/*Sorting Stuff*/}
+    const [sortType, setSortType] = useState('name'); // Default sort by name
+    const [sortOrder, setSortOrder] = useState('asc'); // Default sort order
+
+    const handleSortChange = (e) => {
+        setSortType(e.target.value);
+    };
+    
+    const handleOrderChange = (e) => {
+        setSortOrder(e.target.value);
+    };
+    {/*Sorting Stuff*/}
+
     const getMedia = () => {
         setLoading(true);
         fetch("http://localhost:8080/mediaItems/getAll")
@@ -73,7 +86,7 @@ export default function MediaHandler() {
         fetch("http://localhost:8080/mediaItems/setFilter", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nameFilter: nameFilter, ratingFilter: ratingFilter})
+            body: JSON.stringify({ nameFilter: nameFilter, ratingFilter: ratingFilter, sortType: sortType, sortOrder: sortOrder})
         }).then(() => {
             getMedia();
         });
@@ -211,7 +224,7 @@ export default function MediaHandler() {
                     <Box
                         component="form"
                         sx={{
-                            '& > :not(style)': { m: 1, width: '62ch' },
+                            '& > :not(style)': { ml: 1, mb:3, width: '62ch' },
                         }}
                         noValidate
                         autoComplete="off"
@@ -239,11 +252,47 @@ export default function MediaHandler() {
                             variant="contained" 
                             className="greenButtonSearch" 
                             onClick={handleFilterClick}
-                        >
+                            >
                             Search
-                        </Button>
+                            </Button>
                             {loading && <CircularProgress size={1} sx={{ ml: 2 }} />}
                         </Box>
+
+                        {/*Sorting Stuff*/}
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                            <TextField
+                                select
+                                label="Sort By"
+                                value={sortType}
+                                onChange={handleSortChange}
+                                sx={{ ml: 0 }}
+                                SelectProps={{
+                                    native: true,
+                                }}
+                            >
+                                <option value="id">Default</option>
+                                <option value="name">Name</option>
+                                <option value="rating">Rating</option>
+                                <option value="finishDate">Finish Date</option>
+                            </TextField>
+
+                            {/* Sort Order Dropdown */}
+                            <TextField
+                                select
+                                label="Order"
+                                value={sortOrder}
+                                onChange={handleOrderChange}
+                                sx={{ ml: 1 }}
+                                SelectProps={{
+                                    native: true
+                                }}
+                            >
+                                <option value="asc">Ascending</option>
+                                <option value="desc">Descending</option>
+                            </TextField>
+                        </Box>
+                        {/*Sorting Stuff*/}
+
                     </Box>
                 </Container>
 

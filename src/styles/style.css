@@ -22,7 +22,7 @@
 .MuiButton-root.greenButton {
     background-color: #4caf50 !important;  /* Use Material-UI's green color */
     color: white !important;
-    padding: 8px 16px !important;
+    padding: 4px 15px !important;
     font-size: 0.875rem !important;
     border-radius: 20px !important;       /* Rounded corners */
     transition: background-color 0.3s ease !important; /* Smooth transition */
@@ -46,7 +46,7 @@
 }
 
 .MuiButton-root.redButton {
-    background-color: red !important;  /* Override default background */
+    background-color: rgb(232, 42, 42) !important;  /* Override default background */
     color: white !important;             /* Override default text color */
     padding: 4px 8px !important;         /* Override padding */
     font-size: 0.75rem !important;       /* Override font size */
@@ -55,7 +55,7 @@
 }
 
 .MuiButton-root.redButton:hover {
-    background-color: darkred !important; /* Darker green on hover */
+    background-color: rgb(171, 2, 2) !important; /* Darker green on hover */
 }
 
 .mediaItem {
