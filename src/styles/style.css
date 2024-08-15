@@ -1,3 +1,21 @@
+/* Paper Component Styling */
+.paperStyle {
+    padding: 100px 300px;
+    width: 50%;
+    max-width: 200px;
+    margin: 20px auto;
+    background-color: #b62929 !important;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 80px !important;
+}
+
+/* Custom Background Style */
+.backgroundStyle {
+    background-color: rgba(243, 214, 174, 0.663);
+    min-height: 100vh;
+    padding: 20px;
+}
+
 .bold-green {
     font-weight: 700;
     color: rgb(1, 104, 1);

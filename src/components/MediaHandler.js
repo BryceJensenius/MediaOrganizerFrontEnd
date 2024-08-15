@@ -8,7 +8,7 @@ import '../styles/style.css';
 export default function MediaHandler() {
     const paperStyle = { padding: '50px 30px', width: 600, margin: "20px auto" };
     const [name, setName] = useState('');
-    const [finishDate, setFinishDate] = useState('');
+    const [finishDate, setFinishDate] = useState(new Date().toLocaleDateString());
     const [rating, setRating] = useState('');
     const [review, setReview] = useState('');
     const [media, setMedia] = useState([]);
@@ -48,6 +48,12 @@ export default function MediaHandler() {
             alert("Name field cannot be empty");
             return;
         }
+        if(finishDate.trim() === ''){
+            setFinishDate(new Date().toLocaleDateString());
+            alert("Finish Date cannot be empty");
+            return;
+        }
+
         const mediaItem = { name, finishDate, rating, review };
 
         {/* if the element is one that was being edited, set an ID and it automatically saves changes rather than creating a new element*/}
@@ -63,7 +69,7 @@ export default function MediaHandler() {
         }).then(() => {
             getMedia();
             setName('');
-            setFinishDate('');
+            setFinishDate(new Date().toLocaleDateString());
             setRating('');
             setReview('');
         });
@@ -117,21 +123,15 @@ export default function MediaHandler() {
     const cancelEdit = () => {
         setEditing(false);
         setName('');
-        setFinishDate('');
+        setFinishDate(new Date().toLocaleDateString());
         setRating('');
         setReview('');
     };
 
     return (
         <Container 
-            maxWidth="md" 
-            sx={{
-                display: 'flex', 
-                flexDirection: 'column', 
-                alignItems: 'center',
-                justifyContent: 'flex-start', 
-                minHeight: '100vh'
-            }}
+            maxWidth="mw" 
+            className='backgroundStyle'
         >
             {/* Add Media Paper */}
             <Box component="form" noValidate autoComplete="off">
@@ -162,7 +162,7 @@ export default function MediaHandler() {
                     <Box sx={{ mb: 2 }}>
                         <TextField 
                             id="outlined-basic-finishDate" 
-                            label="Media Finish Date" 
+                            label="MM/DD/YYYY : Finish Date" 
                             variant="outlined" 
                             fullWidth 
                             value={finishDate}
@@ -196,7 +196,7 @@ export default function MediaHandler() {
             </Box>
 
             {/* Media List Paper */}
-            <Paper elevation={3} style={paperStyle}>
+            <Paper elevation={5} style={paperStyle}>
                 <Typography 
                     variant="h4" 
                     component="h1"
