@@ -17,6 +17,7 @@ export default function MediaHandler() {
     const [editingMedia, setEditing] = useState(false);
     const [nameFilter, setNameFilter] = useState('');
     const [ratingFilter, setRatingFilter] = useState('');
+    const [nameGuess, setNameGuess] = useState([]);
 
     {/*Sorting Stuff*/}
     const [sortType, setSortType] = useState('name'); // Default sort by name
@@ -128,6 +129,29 @@ export default function MediaHandler() {
         setReview('');
     };
 
+    const getClosestNames = (title) => {
+        if (title.trim() === '') {
+            return;
+        }
+        fetch(`http://localhost:8080/api/omdb/movie/${title}`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        })
+        .then((res) => {
+            if(!res.ok){//.ok is a projerty of response indicating the status of the return code, 200, 400...
+                throw new Error('Network response Failed');
+            }
+            return res.json();
+        }).then((result) => {
+            if(Array.isArray(result.results)){
+                const names = result.results.map(movie => movie.title);//they are key value pairs so we need to grap the names and put in a list
+                setNameGuess(names);
+            }else{
+                console.error("Unexpected response Structure:", result);
+                setNameGuess([]); //names list set to empty
+            }
+    })};
+
     return (
         <Container 
             maxWidth="mw" 
@@ -156,9 +180,24 @@ export default function MediaHandler() {
                             variant="outlined" 
                             fullWidth 
                             value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e) => {
+                                setName(e.target.value)
+                                getClosestNames(e.target.value)
+                            }}
                         />
                     </Box>
+
+                    {/*Guess Names*/}
+                    {nameGuess.map(mediaTitle => (
+                    <Paper 
+                        elevation={1} 
+                        className="mediaItem" 
+                    >
+                        <span className="bold-green">{mediaTitle}</span>
+                    </Paper>
+                    ))}
+                    {/*Guess Names End*/}
+
                     <Box sx={{ mb: 2 }}>
                         <TextField 
                             id="outlined-basic-finishDate" 
