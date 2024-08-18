@@ -134,7 +134,7 @@ export default function MediaHandler() {
         if (title.trim() === '') {
             return;
         }
-        fetch(`http://localhost:8080/api/omdb/movie/${title}`, {
+        fetch(`http://localhost:8080/api/omdb/getTitles/${title}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         })
@@ -202,13 +202,13 @@ export default function MediaHandler() {
                                 elevation={1} 
                                 className="guessItem" 
                             >
-                                        {nameGuess.map((mediaTitle, index) => (
-                                            <span
-                                                key={index}
-                                                onClick={() => setMediaWithGuess(mediaTitle)}
-                                                className="bold-green"
-                                            >{mediaTitle}<br /></span>
-                                        ))}
+                                {nameGuess.map((mediaTitle, index) => (
+                                    <span
+                                        key={index}
+                                        onClick={() => setMediaWithGuess(mediaTitle)}
+                                        className="bold-green"
+                                    >{mediaTitle}<br /></span>
+                                ))}
                             </Paper>
                         </>
                     )}
