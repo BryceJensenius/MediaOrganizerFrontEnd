@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import { Container, Paper, Button, Typography } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import '../styles/style.css';
+import PopUpModel from '../components/PopUpModel';
 
 export default function MediaHandler() {
     const paperStyle = { padding: '50px 30px', width: 600, margin: "20px auto" };
@@ -18,6 +19,9 @@ export default function MediaHandler() {
     const [nameFilter, setNameFilter] = useState('');
     const [ratingFilter, setRatingFilter] = useState('');
     const [nameGuess, setNameGuess] = useState([]);
+    const [movieDetails, setMovieDetails] = useState([]);//movie you clicked into
+    const [extraDetailsVisible, setExtraDetailsVisible] = useState(false);//imdb details pop up status
+    const [moviePosterUrl, setMoviePosterUrl] = useState('');
 
     {/*Sorting Stuff*/}
     const [sortType, setSortType] = useState('name'); // Default sort by name
@@ -78,6 +82,14 @@ export default function MediaHandler() {
 
     const toggleReviewVisibility = (id) => {
         {/*Cant go into other elements while editing one*/}
+
+        //if extra details are visible and you click a different item, close details
+        //this makes it so it stays there when toggle toggle with more details because I have no idea how to stop that
+        if(extraDetailsVisible && visibleReviewId !== id){
+            setMovieDetails(null);
+            setExtraDetailsVisible(false)
+            console.log("details cleared");
+        }
         if(!editingMedia){
             setVisibleReviewId(visibleReviewId === id ? null : id);
         }
@@ -105,6 +117,7 @@ export default function MediaHandler() {
         }
     };
 
+    {/* Clicking into Media */}
     const handleEditClick = (id) => {
         fetch(`http://localhost:8080/mediaItems/getById/${id}`, {
             method: "GET",
@@ -120,6 +133,44 @@ export default function MediaHandler() {
             setVisibleReviewId(id); {/*Hitting edit minimizes item, reopen it*/}
         });
     };
+
+    const getMovieDetails = (title, id) => {
+        fetch(`http://localhost:8080/api/omdb/getFullInfo/${title}`)
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error('Failed to fetch movie details');
+                }
+                return res.json();
+            })
+            .then((arrayParam) => {
+                if(Array.isArray(arrayParam)){
+                    setMovieDetails(arrayParam);
+                }else{
+                    console.error("Unexpected response Structure:", arrayParam);
+                    setMovieDetails([]); //names list set to empty
+                }
+                setExtraDetailsVisible(true);
+                setVisibleReviewId(id);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    };       
+
+    const extractPosterUrl = () => {
+        const posterDetail = movieDetails.find(detail => detail.startsWith('Poster:'));
+        if (posterDetail) {
+          return posterDetail.split('Poster:')[1].trim();
+        }
+        return '';
+      };
+    
+      // Update poster URL whenever movieDetails change
+      React.useEffect(() => {
+        setMoviePosterUrl(extractPosterUrl());
+      }, [movieDetails]);
+
+    {/* End Clicking into Media */}
     
     const cancelEdit = () => {
         setEditing(false);
@@ -370,8 +421,17 @@ export default function MediaHandler() {
                                 {!editingMedia && (
                                     <>
                                         <Button onClick={() => handleEditClick(mediaItem.id)} className="greenButton">Edit</Button>
+                                        <Button onClick={() => getMovieDetails(mediaItem.name, mediaItem.id)} className="greenButton">More Details</Button><br/>
+
+                                        <PopUpModel
+                                            isVisible={extraDetailsVisible}
+                                            details={movieDetails}
+                                            onClose={() => setExtraDetailsVisible(false)}
+                                            poster={moviePosterUrl}
+                                        />
                                     </>
                                 )}
+
                                 {editingMedia && (
                                     <>
                                         <Button onClick={cancelEdit} className="redButton">Cancel</Button>

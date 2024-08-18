@@ -97,3 +97,49 @@
     border-radius: 8px;
     transition: all 0.3s ease;
 }
+
+/* styles.css or your preferred CSS file */
+/* Modal background */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Make sure it appears above other content */
+  }
+  
+  /* Modal content */
+  .modal-content {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 80%;
+    max-height: 80%;
+    overflow: auto; /* Enable scrolling */
+    position: relative; /* To position close button */
+  }
+  
+  /* Close button */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+  }
+  
+  /* Details container for scrolling */
+  .details-container {
+    max-height: 60vh; /* Adjust based on your needs */
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+  
+  /* Individual detail item */
+  .detail-item {
+    margin-bottom: 10px;
+  }
