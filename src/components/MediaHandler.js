@@ -129,6 +129,7 @@ export default function MediaHandler() {
         setReview('');
     };
 
+    {/* Guessing Stuff */}
     const getClosestNames = (title) => {
         if (title.trim() === '') {
             return;
@@ -143,14 +144,21 @@ export default function MediaHandler() {
             }
             return res.json();
         }).then((result) => {
-            if(Array.isArray(result.results)){
-                const names = result.results.map(movie => movie.title);//they are key value pairs so we need to grap the names and put in a list
-                setNameGuess(names);
+            if(Array.isArray(result)){
+                setNameGuess(result);
             }else{
                 console.error("Unexpected response Structure:", result);
                 setNameGuess([]); //names list set to empty
             }
     })};
+
+    const setMediaWithGuess = (guessTitle) => {
+        setName(guessTitle);
+        setNameGuess([]);
+    };
+
+
+    {/* End Guessing Stuff */}
 
     return (
         <Container 
@@ -188,14 +196,22 @@ export default function MediaHandler() {
                     </Box>
 
                     {/*Guess Names*/}
-                    {nameGuess.map(mediaTitle => (
-                    <Paper 
-                        elevation={1} 
-                        className="mediaItem" 
-                    >
-                        <span className="bold-green">{mediaTitle}</span>
-                    </Paper>
-                    ))}
+                    {nameGuess.length !== 0 && (
+                        <>
+                            <Paper 
+                                elevation={1} 
+                                className="guessItem" 
+                            >
+                                        {nameGuess.map((mediaTitle, index) => (
+                                            <span
+                                                key={index}
+                                                onClick={() => setMediaWithGuess(mediaTitle)}
+                                                className="bold-green"
+                                            >{mediaTitle}<br /></span>
+                                        ))}
+                            </Paper>
+                        </>
+                    )}
                     {/*Guess Names End*/}
 
                     <Box sx={{ mb: 2 }}>

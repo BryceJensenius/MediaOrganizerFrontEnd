@@ -86,3 +86,14 @@
     border-radius: 8px;
     transition: all 0.3s ease;
 }
+
+.guessItem {
+    margin: 10px 0;
+    padding: 10px;
+    text-align: left;
+    cursor: pointer;
+    background-color: #fafafa;
+    border-left: 4px solid #4caf50;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
