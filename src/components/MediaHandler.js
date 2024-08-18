@@ -21,7 +21,6 @@ export default function MediaHandler() {
     const [nameGuess, setNameGuess] = useState([]);
     const [movieDetails, setMovieDetails] = useState([]);//movie you clicked into
     const [extraDetailsVisible, setExtraDetailsVisible] = useState(false);//imdb details pop up status
-    const [moviePosterUrl, setMoviePosterUrl] = useState('');
 
     {/*Sorting Stuff*/}
     const [sortType, setSortType] = useState('name'); // Default sort by name
@@ -156,19 +155,6 @@ export default function MediaHandler() {
                 console.error('Error:', error);
             });
     };       
-
-    const extractPosterUrl = () => {
-        const posterDetail = movieDetails.find(detail => detail.startsWith('Poster:'));
-        if (posterDetail) {
-          return posterDetail.split('Poster:')[1].trim();
-        }
-        return '';
-      };
-    
-      // Update poster URL whenever movieDetails change
-      React.useEffect(() => {
-        setMoviePosterUrl(extractPosterUrl());
-      }, [movieDetails]);
 
     {/* End Clicking into Media */}
     
@@ -427,7 +413,6 @@ export default function MediaHandler() {
                                             isVisible={extraDetailsVisible}
                                             details={movieDetails}
                                             onClose={() => setExtraDetailsVisible(false)}
-                                            poster={moviePosterUrl}
                                         />
                                     </>
                                 )}
