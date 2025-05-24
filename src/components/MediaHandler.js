@@ -37,7 +37,7 @@ export default function MediaHandler() {
 
     const getMedia = () => {
         setLoading(true);
-        fetch("http://localhost:8080/mediaItems/getAll")
+        fetch("http://3.137.200.45:8080/mediaItems/getAll")
             .then(res => res.json())
             .then((result) => {
                 setMedia(result);
@@ -66,7 +66,7 @@ export default function MediaHandler() {
             setEditing(false);
         }
 
-        fetch("http://localhost:8080/mediaItems/add", {
+        fetch("http://3.137.200.45:8080/mediaItems/add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(mediaItem)
@@ -101,7 +101,7 @@ export default function MediaHandler() {
     const handleFilterClick = (e) => {
         e.preventDefault();
         setLoading(true);
-        fetch("http://localhost:8080/mediaItems/setFilter", {
+        fetch("http://3.137.200.45:8080/mediaItems/setFilter", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ nameFilter: nameFilter, ratingFilter: ratingFilter, sortType: sortType, sortOrder: sortOrder})
@@ -118,7 +118,7 @@ export default function MediaHandler() {
 
     {/* Clicking into Media */}
     const handleEditClick = (id) => {
-        fetch(`http://localhost:8080/mediaItems/getById/${id}`, {
+        fetch(`http://3.137.200.45:8080/mediaItems/getById/${id}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         })
@@ -134,7 +134,7 @@ export default function MediaHandler() {
     };
 
     const getMovieDetails = (title, id) => {
-        fetch(`http://localhost:8080/api/omdb/getFullInfo/${title}`)
+        fetch(`http://3.137.200.45:8080/api/omdb/getFullInfo/${title}`)
             .then((res) => {
                 if (!res.ok) {
                     throw new Error('Failed to fetch movie details');
@@ -171,7 +171,7 @@ export default function MediaHandler() {
         if (title.trim() === '') {
             return;
         }
-        fetch(`http://localhost:8080/api/omdb/getTitles/${title}`, {
+        fetch(`http://3.137.200.45:8080/api/omdb/getTitles/${title}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         })
