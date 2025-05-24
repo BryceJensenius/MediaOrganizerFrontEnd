@@ -81,7 +81,7 @@ export default function MediaHandler() {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(mediaItem)
-        }).then(() => {
+        }).then((res) => {
             console.log("Response from /mediaItems/add:", res);
             getMedia();
             setName('');
