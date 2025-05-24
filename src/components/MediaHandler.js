@@ -36,11 +36,21 @@ export default function MediaHandler() {
     {/*Sorting Stuff*/}
 
     const getMedia = () => {
+        console.log("Fetching media items...");
         setLoading(true);
         fetch("http://3.137.200.45:8080/mediaItems/getAll")
-            .then(res => res.json())
+            .then(res => {
+                console.log("Received response from /mediaItems/getAll:", res);
+                res.json()
+
+            })
             .then((result) => {
+                console.log("Parsed media items:", result);
                 setMedia(result);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error fetching media items:", error);
                 setLoading(false);
             });
     };
@@ -59,6 +69,7 @@ export default function MediaHandler() {
         }
 
         const mediaItem = { name, finishDate, rating, review };
+        console.log("Prepared mediaItem for submission:", mediaItem);
 
         {/* if the element is one that was being edited, set an ID and it automatically saves changes rather than creating a new element*/}
         if(editingMedia){
@@ -71,11 +82,15 @@ export default function MediaHandler() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(mediaItem)
         }).then(() => {
+            console.log("Response from /mediaItems/add:", res);
             getMedia();
             setName('');
             setFinishDate(new Date().toLocaleDateString());
             setRating('');
             setReview('');
+        })
+        .catch((error) => {
+            console.error("Error adding media item:", error);
         });
     };
 
