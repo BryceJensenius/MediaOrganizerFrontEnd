@@ -41,7 +41,7 @@ export default function MediaHandler() {
         fetch("https://api.brycejensenius.xyz/mediaItems/getAll")
             .then(res => {
                 console.log("Received response from /mediaItems/getAll:", res);
-                res.json()
+                return res.json()
             })
             .then((result) => {
                 console.log("Parsed media items:", result);
