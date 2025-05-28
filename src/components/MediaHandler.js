@@ -42,7 +42,6 @@ export default function MediaHandler() {
             .then(res => {
                 console.log("Received response from /mediaItems/getAll:", res);
                 res.json()
-
             })
             .then((result) => {
                 console.log("Parsed media items:", result);
@@ -404,7 +403,7 @@ export default function MediaHandler() {
                 </Container>
 
                 {/* FILTER STUFF END */}
-                {media.map(mediaItem => (
+                {Array.isArray(media) && media.map(mediaItem => (
                     <Paper 
                         elevation={1} 
                         className="mediaItem" 
