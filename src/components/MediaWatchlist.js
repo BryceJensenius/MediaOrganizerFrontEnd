@@ -20,7 +20,7 @@ export default function MediaWatchlist() {
     const getWatchlist = () => {
         setLoading(true);
         fetch("https://api.brycejensenius.xyz/mediaWatch/getAll")
-            .then(res => res.text())
+            .then(res => res.json())
             .then((result) => {
                 setWatchlist(result);
                 setLoading(false);
