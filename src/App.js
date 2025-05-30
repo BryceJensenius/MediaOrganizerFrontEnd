@@ -1,6 +1,8 @@
 import './App.css';
 import Appbar from './components/Appbar';
-import Student from './components/MediaHandler';
+import NavBar from './components/NavBar';
+import MediaHandler from './components/MediaHandler';
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 //stop stealing my code with inspect 
 //     .-''''''-.
 //   .'          '.
@@ -15,8 +17,15 @@ import Student from './components/MediaHandler';
 function App() {
   return (
     <div className="App">
-
-    <Student/>
+      <Router>
+        <NavBar />
+        <Appbar />
+        <Routes>
+          <Route path="/" element={<Navigate to="/media" replace />} /> // Redirect root to /media
+          <Route path="/media" element={<MediaHandler />} />
+          <Route path="/watchlist" element={<MediaWatchlist />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
