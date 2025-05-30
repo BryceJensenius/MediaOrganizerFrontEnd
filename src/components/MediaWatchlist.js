@@ -8,7 +8,7 @@ import PopUpModel from './PopUpModel';
 
 export default function MediaWatchlist() {
     const paperStyle = { padding: '50px 30px', width: 600, margin: "20px auto" };
-    const [name, setName] = useState('');
+    const [mediaName, setMediaName] = useState('');
     const [nameGuess, setNameGuess] = useState([]);
     const [watchlist, setWatchlist] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -57,26 +57,26 @@ export default function MediaWatchlist() {
 
     // Set input to guessed name
     const setMediaWithGuess = (guessTitle) => {
-        setName(guessTitle);
+        setMediaName(guessTitle);
         setNameGuess([]);
     };
 
     // Add movie to watchlist
     const handleAdd = (e) => {
         e.preventDefault();
-        if (name.trim() === '') {
-            alert("Movie name cannot be empty");
+        if (mediaName.trim() === '') {
+            alert("Movie Media Name cannot be empty");
             return;
         }
         setLoading(true);
         fetch("https://api.brycejensenius.xyz/mediaWatch/add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name })
+            body: JSON.stringify({ mediaName })
         })
         .then(res => res.json())
         .then(() => {
-            setName('');
+            setMediaName('');
             setNameGuess([]);
             getWatchlist();
             setLoading(false);
@@ -116,7 +116,7 @@ export default function MediaWatchlist() {
             setExtraDetailsVisible(false);
             setVisibleMovieId(null);
         } else {
-            getMovieDetails(movie.name, movie.id);
+            getMovieDetails(movie.mediaName, movie.id);
         }
     };
 
@@ -148,9 +148,9 @@ export default function MediaWatchlist() {
                             label="Movie Name" 
                             variant="outlined" 
                             fullWidth 
-                            value={name}
+                            value={mediaName}
                             onChange={(e) => {
-                                setName(e.target.value);
+                                setMediaName(e.target.value);
                                 getClosestNames(e.target.value);
                             }}
                         />
@@ -206,7 +206,7 @@ export default function MediaWatchlist() {
                         onClick={() => handleMovieClick(movie)}
                     >
                         <span className="bold-green">Name:</span>
-                        <span className="light-bold"> {movie.name}</span>
+                        <span className="light-bold"> {movie.mediaName}</span>
                         {visibleMovieId === movie.id && extraDetailsVisible && (
                             <PopUpModel
                                 isVisible={extraDetailsVisible}
