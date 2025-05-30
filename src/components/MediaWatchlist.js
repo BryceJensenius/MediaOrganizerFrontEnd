@@ -75,7 +75,6 @@ export default function MediaWatchlist() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ mediaName })
         })
-        .then(res => res.json())
         .then(() => {
             setMediaName('');
             setNameGuess([]);
