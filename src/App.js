@@ -20,7 +20,6 @@ function App() {
     <div className="App">
       <Router>
         <NavBar />
-        <Appbar />
         <Routes>
           <Route path="/" element={<MediaHandler />} />
           <Route path="/watchlist" element={<MediaWatchlist />} />
