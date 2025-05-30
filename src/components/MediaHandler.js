@@ -217,7 +217,6 @@ export default function MediaHandler() {
             maxWidth="mw" 
             className='backgroundStyle'
         >
-            <NavBar />
             {/* Add Media Paper */}
             <Box component="form" noValidate autoComplete="off">
                 <Paper elevation={5} style={paperStyle}>

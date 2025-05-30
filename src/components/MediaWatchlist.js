@@ -5,7 +5,6 @@ import { Container, Paper, Button, Typography } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import '../styles/style.css';
 import PopUpModel from './PopUpModel';
-import NavBar from "./NavBar.js";
 
 export default function MediaWatchlist() {
     const paperStyle = { padding: '50px 30px', width: 600, margin: "20px auto" };
