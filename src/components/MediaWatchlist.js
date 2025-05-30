@@ -68,6 +68,7 @@ export default function MediaWatchlist() {
             alert("Movie Media Name cannot be empty");
             return;
         }
+        printf("Adding movie: %s", mediaName);
         setLoading(true);
         fetch("https://api.brycejensenius.xyz/mediaWatch/add", {
             method: "POST",
