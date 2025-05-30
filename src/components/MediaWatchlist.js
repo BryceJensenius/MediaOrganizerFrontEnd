@@ -75,7 +75,9 @@ export default function MediaWatchlist() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ mediaName })
         })
-        .then(() => {
+        .then(res => res.text())
+        .then((message) => {
+            console.log("Server response:", message); // e.g., "New Media Watch List Item Was Added"
             setMediaName('');
             setNameGuess([]);
             getWatchlist();
