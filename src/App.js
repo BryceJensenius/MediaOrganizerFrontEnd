@@ -22,8 +22,7 @@ function App() {
         <NavBar />
         <Appbar />
         <Routes>
-          <Route path="/" element={<Navigate to="/media" replace />} /> // Redirect root to /media
-          <Route path="/media" element={<MediaHandler />} />
+          <Route path="/" element={<MediaHandler />} />
           <Route path="/watchlist" element={<MediaWatchlist />} />
         </Routes>
       </Router>
