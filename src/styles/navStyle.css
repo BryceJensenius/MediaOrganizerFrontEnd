@@ -1,0 +1,722 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+.headNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: min(10px, 1vw) min(20px, 1vw);
+    position: relative;
+    z-index: 1000;
+}
+
+nav ul {
+    list-style: none;
+    display: none;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.3s;
+    margin: 0;
+}
+
+nav ul.show {
+    display: flex;
+}
+
+nav li {
+    margin: 0 min(20px, 1vw);
+}
+
+nav a {
+    text-decoration: none;
+    font-family: Baskerville;
+    color: #ffffff;
+    border: 2px double #82b09d;
+    background-color: rgba(98, 181, 98, 0.633);
+    padding: min(10px, 1vw);
+    font-weight: 600;
+    border-radius: 15px;
+    font-size: min(20px, 3.5vw);
+}
+
+.currentPageIcon {
+    background-color: rgb(91, 169, 91);
+    border: 4px double #2a2a2aac;
+}
+
+.hamburger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 22px;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.line {
+    background-color: #000;
+    height: 3px;
+    width: 100%;
+    transition: all 0.3s;
+}
+
+
+img {
+    max-width: 925px;
+}
+
+.bodyBackground {
+    background-color: #e2ffd2;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+
+    background-image: url("../../public/images/treeByBrooksidePark.JPEG");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 0;
+}
+
+body {
+    background-color: #e2ffd2;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-element {
+    text-decoration: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: min(13px, 1vw);
+    color: #dcdcdc;
+    border: 2px solid #1c611c;
+    padding: 9px;
+    font-weight: 600;
+    border-radius: 15px;
+    font-size: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 1px;
+    background-color: #228B22;
+    color: #fff;
+}
+
+footer a {
+    color: #fff;
+    margin: 0 min(5px, 0.5vw);
+    text-decoration: none;
+    font-size: min(15px, 4vw);
+}
+
+footer a:hover {
+    color: rgba(233, 207, 207, 0.824);
+}
+ 
+header {
+    background-color: #228B22;
+    color: #fff;
+    z-index: 20;
+}
+
+header a:hover {
+    color: rgba(233, 207, 207, 0.824);
+}
+
+.contacts {
+    text-align: center;
+    text-decoration: none;
+    font-family: Baskerville;
+    color: #000000;
+    border: 5px double #413d3d;
+    padding: px;
+    font-weight: 600;
+    margin: 0 auto;
+    border-radius: 25px;
+    width: min(250px, 40vw);
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.contactFlex {
+    text-align: center;
+    text-decoration: none;
+    font-family: Baskerville;
+    color: #000000;
+    border: 5px double #413d3d;
+    padding: 10px;
+    font-weight: 600;
+    margin: 0 auto;
+    border-radius: 25px;
+    width: min(450px, 50vw);
+    margin-bottom: 10px;
+    font-size: min(20px, 2.5vw);
+    display: flex;
+}
+
+.separator {
+    border-right: 1px solid #d6d6d6;
+    transform: translateX(-600%);
+}
+
+.title-heading {
+    font-family: 'Exo 2', sans-serif;
+    display: flex;
+    font-size: 1em;
+    text-align: center;
+    border-bottom: 1px solid #d6d6d6;
+    font-weight: 700; /* Bold text for emphasis */
+    align-items: center;
+    justify-content: center;
+}
+
+.page-title {
+    font-size: calc(20px + 2.5vw);
+    font-family: 'Dancing Script', cursive;
+    color: #228B22;
+    align-items: center;
+    font-weight: 600;
+}
+
+/* About Cards */
+/* Center the card container */
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: auto; /* Fixed issue where cards were going over header and footer */
+    display: flex;
+    flex-direction: row;
+    height: auto;
+}
+
+/* Container for a locations reviews */
+.review-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    height: auto;
+}
+
+.card {
+    width: 70vw;
+    background-image: url('../../public/images/natureCardTexture.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 40px;
+}
+
+.card-body {
+    color: #000000;
+    background-color: rgba(220, 245, 220, 0.591);
+    border-radius: 10px;
+    border: 2.5px solid darkgreen;
+    margin: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card img {
+    width: 25vw;
+    height: 25vw;
+    object-fit: cover;
+}
+
+.card-title {
+    font-weight: 300;
+    font-size: 2vw;
+    color: rgb(74, 74, 74);
+    font-family: 'Pacifico', cursive;
+    border-bottom: 2px solid rgba(0, 130, 0, 0.817);
+}
+
+.card-title-no-border {
+    font-weight: 300;
+    font-size: 2vw;
+    color: rgb(74, 74, 74);
+    font-family: 'Pacifico', cursive;
+}
+
+.card-text {
+    font-size: calc(1vw + 5px);
+    font-family: 'Times New Roman', Times, serif
+}
+
+.picture-Border {
+    border: 9px double darkgreen;
+}
+
+.leave-review {
+    background-color: #228B22;
+    color: #fff;
+    padding: 1vw;
+    padding-bottom: 2vw;
+    border: none;
+    border-radius: 10px;
+    width: min(120px + 2.5vw, 10vw);
+    height: min(10px, 1vw);
+    font-size: min(10px + 0.3vw, 1vw);
+    justify-content: center;
+    margin: 10px;
+}
+
+/* Card Reviews */
+.leave-review-left {
+    bottom: min(40px + 1.8vw, 5vw);
+    left: min(0px, 0vw);
+    position: absolute;
+    padding: 1vw 1vw;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    height: min(1px + 0.9vw, 2vw);
+    font-size: min(10px + 0.3vw, 1vw);
+
+    justify-content: center;
+}
+
+/* Card Reviews */
+.leave-review-right {
+    bottom: min(40px + 1.8vw, 5vw);
+    right: min(0px, 0vw);
+    position: absolute;
+    padding: 1vw 1vw;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    height: min(40px + 0.9vw, 2vw);
+    font-size: min(10px + 0.3vw, 1vw);
+
+    justify-content: center;
+}
+
+.leave-review:hover {
+    background-color: #28a042;
+}
+
+/* Reviews */
+.review-form {
+    margin-top: 10px;
+}
+
+.review-text {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: calc(7px + 0.5vw);
+}
+
+.submit-review {
+    background-color: #5BA95B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: min(100px + 2.5vw, 14vw);
+    height: max(20px + 0.5vw, 2.2vw);
+    font-size: min(10px + 0.3vw, 1.2vw);
+}
+
+.submit-review:hover {
+    background-color: #478747;
+}
+
+.cancel-review {
+    background-color: rgb(204, 21, 21);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+
+    cursor: pointer;
+    width: min(70px + 2.5vw, 9vw);
+    height: max(20px + 0.5vw, 2.2vw);
+    font-size: min(10px + 0.3vw, 1.2vw);
+}
+
+.cancel-review:hover {
+    background-color: #874747;
+}
+
+
+/* Logo Stuff */
+.logo {
+    width: calc(3vw + 25px);
+    height: calc(3vw + 25px);
+    border: 2px solid darkgreen;
+    margin-right: 10px;
+}
+
+
+/* Search Stuff for Fun Page */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.search-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: min(300px, 40vw);
+    font-size: min(16px, 3vw);
+}
+
+.search-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #5BA95B;
+    color: white;
+    font-size: min(16px, 2vw);
+    cursor: pointer;
+    margin-left: 5px;
+    width: 15vw;
+}
+
+.search-button:hover {
+    background-color: #478747;
+}
+
+label{
+    font-size: min(18px, 3vw);
+    font-family: Baskerville;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-primary{
+    background-color: #478747;
+}
+
+.form-group{
+    width: 60vw;
+    padding: 10px 15px;
+}
+.involved-container{
+    width: 70vw;
+    background-image: url('../../public/images/natureCardTexture.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+}
+.form-comments{
+    width: 57vw;
+    padding: 10px 15px;
+    justify-content: center;
+    align-items: center;
+}
+.question-container{
+    width: 60vw;
+    background-image: url('../../public/images/natureCardTexture.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/* Shared Across All Pages */
+
+.verticalPageDivider {
+    background-color: rgba(111, 199, 111, 0.85);
+    width: 70vw;
+    height: max(160vh, 1200px);
+    margin: 0 auto;
+    margin-top: -15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-left: 2px solid #284f13d1;
+    border-right: 2px solid #284f13d1;
+}
+
+.backgroundWithImage {
+    background-image: url("../../public/images/treeByLibrary.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.elementWithColorBackground {
+    background-color: #e2ffd2d1;
+    padding: min(40px, 5vw);
+    border-radius: 80px;
+    margin: 10px;
+    text-align: center;
+    border: 3px solid #284f13d1;
+}
+
+
+/* Forms Input */
+.inputEntry {
+    background-color: #efffe7d1;
+    border: 2px solid #284f13d1;
+    border-radius: 5px;
+    padding: 10px;
+}
+.carousel-caption{
+    bottom: 20px;
+    text-decoration: none;
+    font-family: Baskerville;
+    color: #ffffff;
+    border: 2px double #82b09d;
+    background-color: rgba(98, 181, 98, 0.633);
+    padding: min(10px, 1vw);
+    font-weight: 600;
+    border-radius: 5px;
+    font-size: min(20px, 3.5vw);
+}
+.carousel-inner img{
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    width: 700px;
+    height: 600px;
+    align-items: center;
+    border: 3px solid #284f13d1; /* 3px wide, solid style, with a color */
+    border-radius: 15px; 
+}
+.car-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+
+
+/* This ensures the tree cards display in rows not columns */
+.card-container {
+    flex-direction: column; /* Stack items vertically */
+    gap: 1rem; /* Add spacing between items */
+    margin: 5px;
+}
+
+.row {
+    width: 100%; /* Ensure full width */
+    justify-content: center; /* Center content if needed */
+    align-items: stretch; /* Make items stretch to fill the container */
+}
+
+i {
+    font-size: 24px;
+    color: #0077b5;
+}
+
+/* Colors of the Footer Icons */
+.icon-style {
+    color: #3b5998;  /* Facebook blue */
+    margin-right: 8px; /* Adds spacing between icon and text */
+}
+
+.icon-instagram {
+    color: #E4405F;  /* Instagram pink */
+}
+
+.icon-twitter {
+    color: #1DA1F2;  /* Twitter blue */
+}
+
+/* Leaving a Review */
+.leave-review-form {
+    padding: 20px;
+    border-radius: 8px;
+    background-color: rgba(220, 245, 220, 0.591);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 800px;
+    margin: 5px auto;
+}
+
+.leave-review-form h5.form-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.leave-review-form .form-group {
+    margin-bottom: 10px;
+    width: calc(100% - 20px); /* Adjust width to account for the 10px margin on each side */
+}
+
+.leave-review-form .form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    margin-right: 10px; /* Ensure the inputs have a margin on the right */
+}
+
+.leave-review-form .btn-submit {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #28a745;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.leave-review-form .btn-submit:hover {
+    background-color: #218838;
+}
+
+
+
+/* Rating Stuff */
+.reviews-section {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e9f5e9; /* Light green background */
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.reviews-heading {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #2c6b2f; /* Dark green for the heading */
+}
+
+.review-item {
+    padding: 15px;
+    background-color: #def9df; /* White background for reviews */
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #4caf50; /* Green left border to highlight reviews */
+}
+
+.review-item:last-child {
+    margin-bottom: 0;
+}
+
+.review-content {
+    font-size: 1rem;
+    color: #333; /* Dark gray for the content */
+}
+
+.review-description {
+    margin-bottom: 10px;
+    font-style: italic;
+    color: #666; /* Light gray for description text */
+    font-size: 14px;
+    margin: 0;
+
+}
+
+.review-rating {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #388e3c; /* Medium green for the rating */
+    margin-top: 5px;
+}
+.reviews-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.reviews-box {
+    max-height: 400px; /* Adjust based on how tall you want the scroll box */
+    overflow-y: auto; /* Makes it scrollable vertically */
+    padding-right: 10px; /* Adds a little padding on the right side */
+    border-radius: 5px; /* Optional rounded corners */
+    margin-top: 10px;
+}
+
+.review-rating {
+    margin-top: 5px;
+}
+
+/* Members */
+/* Bubble Container */
+.members-bubbles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  /* Bubble Style */
+  .bubble {
+    background-color: #28a745;
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .bubble:hover {
+    transform: scale(1.1);
+  }
+  
+  .bubble h6 {
+    font-size: 16px;
+    margin: 0;
+  }
+  
+  .bubble p {
+    font-size: 12px;
+    margin: 0;
+  }
+  
