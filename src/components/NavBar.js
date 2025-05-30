@@ -89,7 +89,7 @@ const NavBar = () => {
             <nav className="headNav" id="headNavElem" ref={headNavigationRef}>
               <ul id="navItems" ref={navItemsRef} style={{ display: 'flex', listStyle: 'none', margin: 0, padding: 0 }}>
                 <li style={{ marginRight: '20px' }}>
-                  <Link to="/media" className={getLinkClass('/media')} style={{ color: 'white', textDecoration: 'none' }}>
+                  <Link to="/" className={getLinkClass('/media')} style={{ color: 'white', textDecoration: 'none' }}>
                     Media
                   </Link>
                 </li>
