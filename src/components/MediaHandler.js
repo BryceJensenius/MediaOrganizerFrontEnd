@@ -70,7 +70,7 @@ export default function MediaHandler() {
             alert("Name field cannot be empty");
             return;
         }
-        if(finishDate.trim() === ''){
+        if(!finishDate){
             setFinishDate(new Date().toLocaleDateString());
             alert("Finish Date cannot be empty");
             return;
