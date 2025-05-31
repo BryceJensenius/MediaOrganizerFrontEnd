@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/style.css';
+import '../styles/PopUpModel.css';
 
 const PopUpModel = ({ isVisible, details, onClose }) => {
   if (!isVisible || !Array.isArray(details) || details.length === 0) return null;
