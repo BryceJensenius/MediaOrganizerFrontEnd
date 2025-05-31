@@ -7,10 +7,18 @@ import '../styles/style.css';
 import PopUpModel from '../components/PopUpModel';
 import NavBar from "./NavBar.js";
 
+// Date Picker Imports
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 export default function MediaHandler() {
     const paperStyle = { padding: '50px 30px', width: 600, margin: "20px auto" };
     const [name, setName] = useState('');
-    const [finishDate, setFinishDate] = useState(new Date().toLocaleDateString());
+
+    // const [finishDate, setFinishDate] = useState(new Date().toLocaleDateString());
+    const [finishDate, setFinishDate] = useState(new Date());
+
     const [rating, setRating] = useState('');
     const [review, setReview] = useState('');
     const [media, setMedia] = useState([]);
@@ -67,8 +75,10 @@ export default function MediaHandler() {
             alert("Finish Date cannot be empty");
             return;
         }
-
-        const mediaItem = { name, finishDate, rating, review };
+        const formattedFinishDate = finishDate
+            ? new Date(finishDate).toLocaleDateString()
+            : '';
+        const mediaItem = { name, finishDate: formattedFinishDate, rating, review };
         console.log("Prepared mediaItem for submission:", mediaItem);
 
         {/* if the element is one that was being edited, set an ID and it automatically saves changes rather than creating a new element*/}
@@ -275,26 +285,39 @@ export default function MediaHandler() {
                     )}
                     {/*Guess Names End*/}
 
+                    {/* Media Rating TextField */}
                     <Box sx={{ mb: 2 }}>
-                        <TextField 
-                            id="outlined-basic-finishDate" 
-                            label="MM/DD/YYYY : Finish Date" 
-                            variant="outlined" 
-                            fullWidth 
-                            value={finishDate}
-                            onChange={(e) => setFinishDate(e.target.value)}
-                        />
-                    </Box>
-                    <Box sx={{ mb: 2 }}>
-                        <TextField 
-                            id="outlined-basic-rating" 
-                            label="Media Rating" 
-                            variant="outlined" 
-                            fullWidth 
+                        <TextField
+                            id="outlined-basic-rating"
+                            label="Media Rating (0 - 10)"
+                            variant="outlined"
+                            fullWidth
+                            type="number"
+                            inputProps={{
+                                min: 0,
+                                max: 10,
+                                step: 0.1,
+                            }}
                             value={rating}
-                            onChange={(e) => setRating(e.target.value)}
+                            onChange={e => {
+                                let val = e.target.value;
+                                // Allow empty string for controlled input
+                                if (val === '') {
+                                    setRating('');
+                                    return;
+                                }
+                                // Clamp value between 0 and 10, and only allow one decimal place
+                                let num = parseFloat(val);
+                                if (isNaN(num)) num = 0;
+                                if (num < 0) num = 0;
+                                if (num > 10) num = 10;
+                                // Limit to one decimal place
+                                num = Math.floor(num * 10) / 10;
+                                setRating(num);
+                            }}
                         />
                     </Box>
+                    { /* Media Review TextField */}
                     <Box sx={{ mb: 2 }}>
                         <TextField 
                             id="outlined-basic-review" 
@@ -304,6 +327,27 @@ export default function MediaHandler() {
                             value={review}
                             onChange={(e) => setReview(e.target.value)}
                         />
+                    </Box>
+
+                    {/* Date Picker for Finish Date */}
+                    <Box sx={{ mb: 2 }}>
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <DatePicker
+                                label="Finish Date"
+                                value={finishDate}
+                                onChange={date => {
+                                    setFinishDate(date); // store as Date object
+                                }}
+                                renderInput={(params) => (
+                                    <TextField 
+                                        {...params} 
+                                        fullWidth 
+                                        variant="outlined" 
+                                        id="outlined-basic-finishDate"
+                                    />
+                                )}
+                            />
+                        </LocalizationProvider>
                     </Box>
                     <Button variant="contained" className="greenButton" onClick={handleClick}>
                         Submit Input
