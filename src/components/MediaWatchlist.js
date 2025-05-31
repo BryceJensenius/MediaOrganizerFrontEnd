@@ -5,6 +5,7 @@ import { Container, Paper, Button, Typography } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import '../styles/style.css';
 import PopUpModel from './PopUpModel';
+import { useNavigate } from 'react-router-dom';
 
 export default function MediaWatchlist() {
     const paperStyle = { padding: '50px 30px', width: 600, margin: "20px auto" };
@@ -15,6 +16,16 @@ export default function MediaWatchlist() {
     const [movieDetails, setMovieDetails] = useState([]);
     const [extraDetailsVisible, setExtraDetailsVisible] = useState(false);
     const [visibleMovieId, setVisibleMovieId] = useState(null);
+
+    // Pulling in Watchlist Movie to MediaHandler
+    const navigate = useNavigate();
+
+    const pullMovieClick = (movieName) => {
+        // Save the movie name to localStorage
+        localStorage.setItem('selectedMovieName', movieName);
+        // Navigate to the MediaHandler page
+        navigate('/');
+    };
 
     // Fetch all movies in the watchlist
     const getWatchlist = () => {
@@ -205,16 +216,43 @@ export default function MediaWatchlist() {
                         elevation={1} 
                         className="mediaItem" 
                         key={movie.id}
-                        onClick={() => handleMovieClick(movie)}
+                        onClick={() => setVisibleMovieId(movie.id === visibleMovieId ? null : movie.id)}
+                        style={{ cursor: 'pointer' }}
                     >
                         <span className="bold-green">Name:</span>
                         <span className="light-bold"> {movie.mediaName}</span>
-                        {visibleMovieId === movie.id && extraDetailsVisible && (
-                            <PopUpModel
-                                isVisible={extraDetailsVisible}
-                                details={movieDetails}
-                                onClose={() => setExtraDetailsVisible(false)}
-                            />
+                        {visibleMovieId === movie.id && (
+                            <div style={{ marginTop: 8 }}>
+                                <Button
+                                    variant="outlined"
+                                    size="small"
+                                    style={{ fontSize: '0.7rem', borderRadius: '8px', marginRight: 8 }}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        pullMovieClick(movie.mediaName);
+                                    }}
+                                >
+                                    Pull to MediaHandler
+                                </Button>
+                                <Button
+                                    variant="outlined"
+                                    size="small"
+                                    style={{ fontSize: '0.7rem', borderRadius: '8px' }}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleMovieClick(movie);
+                                    }}
+                                >
+                                    {extraDetailsVisible && visibleMovieId === movie.id ? "Hide Details" : "Show Details"}
+                                </Button>
+                                {extraDetailsVisible && visibleMovieId === movie.id && (
+                                    <PopUpModel
+                                        isVisible={extraDetailsVisible}
+                                        details={movieDetails}
+                                        onClose={() => setExtraDetailsVisible(false)}
+                                    />
+                                )}
+                            </div>
                         )}
                     </Paper>
                 ))}

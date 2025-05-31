@@ -113,6 +113,15 @@ export default function MediaHandler() {
         getMedia();
     }, []);
 
+    useEffect(() => {
+        const selectedMovieName = localStorage.getItem('selectedMovieName');
+        if (selectedMovieName) {
+            setName(selectedMovieName);
+            localStorage.removeItem('selectedMovieName');
+        }
+        getMedia();
+    }, []);
+
     const handleFilterClick = (e) => {
         e.preventDefault();
         setLoading(true);
