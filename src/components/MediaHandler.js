@@ -81,7 +81,7 @@ export default function MediaHandler() {
             return;
         }
         if(!finishDate){
-            setFinishDate(new Date().toLocaleDateString());
+            setFinishDate(new Date());
             alert("Finish Date cannot be empty");
             return;
         }
@@ -170,7 +170,7 @@ export default function MediaHandler() {
         .then((result) => {
             setEditing(true);
             setName(result.name);
-            setFinishDate(result.finishDate);
+            setFinishDate(new Date(result.finishDate));
             setRating(result.rating);
             setReview(result.review);
             setVisibleReviewId(id); {/*Hitting edit minimizes item, reopen it*/}
@@ -205,7 +205,7 @@ export default function MediaHandler() {
     const cancelEdit = () => {
         setEditing(false);
         setName('');
-        setFinishDate(new Date().toLocaleDateString());
+        setFinishDate(new Date());
         setRating('');
         setReview('');
     };
