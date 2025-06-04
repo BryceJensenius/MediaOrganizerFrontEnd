@@ -75,14 +75,8 @@ export default function MediaHandler() {
             return;
         }
 
-        // Convert finishDate to ISO string for backend
-        let formattedFinishDate = '';
-        try {
-            formattedFinishDate = finishDate.toISOString();
-        } catch {
-            alert("Invalid finish date");
-            return;
-        }
+        // Format date string for sending to backend
+        const formattedFinishDate = finishDate.toLocaleDateString();
 
         const mediaItem = { name, finishDate: formattedFinishDate, rating, review };
         console.log("Prepared mediaItem for submission:", mediaItem);
@@ -100,7 +94,7 @@ export default function MediaHandler() {
             console.log("Response from /mediaItems/add:", res);
             getMedia();
             setName('');
-            setFinishDate(new Date());  // Reset to Date object, not string
+            setFinishDate(new Date()); // <-- keep as Date object
             setRating('');
             setReview('');
         })
@@ -108,6 +102,7 @@ export default function MediaHandler() {
             console.error("Error adding media item:", error);
         });
     };
+
 
     const toggleReviewVisibility = (id) => {
         {/*Cant go into other elements while editing one*/}
@@ -165,7 +160,7 @@ export default function MediaHandler() {
         .then((result) => {
             setEditing(true);
             setName(result.name);
-            setFinishDate(parseISO(result.finishDate));
+            setFinishDate(result.finishDate ? parseISO(result.finishDate) : new Date());
             setRating(result.rating);
             setReview(result.review);
             setVisibleReviewId(id);
