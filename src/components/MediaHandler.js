@@ -6,6 +6,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import '../styles/style.css';
 import PopUpModel from '../components/PopUpModel';
 import NavBar from "./NavBar.js";
+import { parseISO } from 'date-fns';
 
 // Date Picker Imports
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -13,20 +14,9 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 export default function MediaHandler() {
-    const cors = require('cors');
-    const express = require('express');
-    const app = express();
-
-    app.use(cors({
-        origin: 'https://www.brycejensenius.xyz',
-        methods: ['GET', 'POST', 'OPTIONS'],
-        credentials: true
-    }));
-
     const paperStyle = { padding: '50px 30px', width: 600, margin: "20px auto" };
     const [name, setName] = useState('');
 
-    // const [finishDate, setFinishDate] = useState(new Date().toLocaleDateString());
     const [finishDate, setFinishDate] = useState(new Date());
 
     const [rating, setRating] = useState('');
@@ -80,19 +70,24 @@ export default function MediaHandler() {
             alert("Name field cannot be empty");
             return;
         }
-        if(!finishDate){
-            setFinishDate(new Date());
+        if (!finishDate) {
             alert("Finish Date cannot be empty");
             return;
         }
-        const formattedFinishDate = finishDate
-            ? new Date(finishDate).toLocaleDateString()
-            : '';
+
+        // Convert finishDate to ISO string for backend
+        let formattedFinishDate = '';
+        try {
+            formattedFinishDate = finishDate.toISOString();
+        } catch {
+            alert("Invalid finish date");
+            return;
+        }
+
         const mediaItem = { name, finishDate: formattedFinishDate, rating, review };
         console.log("Prepared mediaItem for submission:", mediaItem);
 
-        {/* if the element is one that was being edited, set an ID and it automatically saves changes rather than creating a new element*/}
-        if(editingMedia){
+        if (editingMedia) {
             mediaItem.id = visibleReviewId;
             setEditing(false);
         }
@@ -105,7 +100,7 @@ export default function MediaHandler() {
             console.log("Response from /mediaItems/add:", res);
             getMedia();
             setName('');
-            setFinishDate(new Date().toLocaleDateString());
+            setFinishDate(new Date());  // Reset to Date object, not string
             setRating('');
             setReview('');
         })
@@ -170,10 +165,10 @@ export default function MediaHandler() {
         .then((result) => {
             setEditing(true);
             setName(result.name);
-            setFinishDate(new Date(result.finishDate));
+            setFinishDate(parseISO(result.finishDate));
             setRating(result.rating);
             setReview(result.review);
-            setVisibleReviewId(id); {/*Hitting edit minimizes item, reopen it*/}
+            setVisibleReviewId(id);
         });
     };
 
