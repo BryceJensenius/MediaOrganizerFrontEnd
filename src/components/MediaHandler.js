@@ -13,6 +13,16 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 export default function MediaHandler() {
+    const cors = require('cors');
+    const express = require('express');
+    const app = express();
+
+    app.use(cors({
+        origin: 'https://www.brycejensenius.xyz',
+        methods: ['GET', 'POST', 'OPTIONS'],
+        credentials: true
+    }));
+
     const paperStyle = { padding: '50px 30px', width: 600, margin: "20px auto" };
     const [name, setName] = useState('');
 
