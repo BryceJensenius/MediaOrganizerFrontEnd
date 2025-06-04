@@ -8,16 +8,6 @@ import PopUpModel from './PopUpModel';
 import { useNavigate } from 'react-router-dom';
 
 export default function MediaWatchlist() {
-    const cors = require('cors');
-    const express = require('express');
-    const app = express();
-
-    app.use(cors({
-        origin: 'https://www.brycejensenius.xyz',
-        methods: ['GET', 'POST', 'OPTIONS'],
-        credentials: true
-    }));
-    
     const paperStyle = { padding: '50px 30px', width: 600, margin: "20px auto" };
     const [mediaName, setMediaName] = useState('');
     const [nameGuess, setNameGuess] = useState([]);
