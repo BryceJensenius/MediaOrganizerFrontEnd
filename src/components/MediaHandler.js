@@ -250,7 +250,7 @@ export default function MediaHandler() {
                             fontWeight: '400',
                         }}
                     >
-                        I Loooooooooooooooooooooooooooooooove you
+                        Add Media
                     </Typography>
                     <Box sx={{ mb: 2 }}>
                         <TextField 
