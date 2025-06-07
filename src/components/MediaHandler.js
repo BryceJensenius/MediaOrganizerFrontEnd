@@ -158,6 +158,7 @@ export default function MediaHandler() {
         })
         .then(res => res.json())
         .then((result) => {
+            console.log("Fetched media item for editing:", result);
             setEditing(true);
             setName(result.name);
             setFinishDate(result.finishDate ? new Date(result.finishDate) : new Date());
