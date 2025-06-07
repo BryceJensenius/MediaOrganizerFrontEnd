@@ -160,7 +160,7 @@ export default function MediaHandler() {
         .then((result) => {
             setEditing(true);
             setName(result.name);
-            setFinishDate(result.finishDate ? parseISO(result.finishDate) : new Date());
+            setFinishDate(result.finishDate ? new Date(result.finishDate) : new Date());
             setRating(result.rating);
             setReview(result.review);
             setVisibleReviewId(id);
