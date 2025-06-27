@@ -103,6 +103,21 @@ export default function MediaHandler() {
         });
     };
 
+    const deleteMediaItem = (e, id) => {
+        e.preventDefault();
+        console.log("Deleting Media Item:", id);
+
+        fetch("https://api.brycejensenius.xyz/mediaItems/delete/" + id, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" }
+        })
+        .then(() => {
+            getMedia(); // Refresh the list after deletion
+        })
+        .catch((error) => {
+            console.error("Error deleting media item:", error);
+        });
+    };
 
     const toggleReviewVisibility = (id) => {
         {/*Cant go into other elements while editing one*/}
@@ -477,7 +492,19 @@ export default function MediaHandler() {
                                     <>
                                         <Button onClick={() => handleEditClick(mediaItem.id)} className="greenButton">Edit</Button>
                                         <Button onClick={() => getMovieDetails(mediaItem.name, mediaItem.id)} className="greenButton">More Details</Button><br/>
-
+                                        <Button
+                                            onClick={e => deleteMediaItem(e, mediaItem.id)}
+                                            className="redButton"
+                                            sx={{
+                                                mt: 1,
+                                                mb: 1,
+                                                fontWeight: 700,
+                                                width: '110px',
+                                                letterSpacing: '0.5px'
+                                            }}
+                                        >
+                                            Delete
+                                        </Button>
                                         <PopUpModel
                                             isVisible={extraDetailsVisible}
                                             details={movieDetails}

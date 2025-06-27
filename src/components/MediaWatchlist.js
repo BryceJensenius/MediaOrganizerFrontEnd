@@ -133,6 +133,22 @@ export default function MediaWatchlist() {
         }
     };
 
+    const deleteMediaWatchItem = (e, id) => {
+        e.preventDefault();
+        console.log("Deleting Media Watch Item:", id);
+
+        fetch("https://api.brycejensenius.xyz/mediaWatch/delete/" + id, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" }
+        })
+        .then(() => {
+            getWatchlist(); // Refresh the list after deletion
+        })
+        .catch((error) => {
+            console.error("Error deleting media watch item:", error);
+        });
+    };
+
     useEffect(() => {
         getWatchlist();
     }, []);
@@ -246,11 +262,26 @@ export default function MediaWatchlist() {
                                     {extraDetailsVisible && visibleMovieId === movie.id ? "Hide Details" : "Show Details"}
                                 </Button>
                                 {extraDetailsVisible && visibleMovieId === movie.id && (
-                                    <PopUpModel
-                                        isVisible={extraDetailsVisible}
-                                        details={movieDetails}
-                                        onClose={() => setExtraDetailsVisible(false)}
-                                    />
+                                    <>
+                                        <PopUpModel
+                                            isVisible={extraDetailsVisible}
+                                            details={movieDetails}
+                                            onClose={() => setExtraDetailsVisible(false)}
+                                        />
+                                        <Button
+                                            onClick={e => deleteMediaWatchItem(e, movie.id)}
+                                            className="redButton"
+                                            sx={{
+                                                mt: 1,
+                                                mb: 1,
+                                                fontWeight: 700,
+                                                width: '110px',
+                                                letterSpacing: '0.5px'
+                                            }}
+                                        >
+                                            Delete
+                                        </Button>
+                                    </>
                                 )}
                             </div>
                         )}
