@@ -251,6 +251,19 @@ export default function MediaWatchlist() {
                                     Pull to MediaHandler
                                 </Button>
                                 <Button
+                                    onClick={e => deleteMediaWatchItem(e, movie.id)}
+                                    className="redButton"
+                                    sx={{
+                                        mt: 1,
+                                        mb: 1,
+                                        fontWeight: 700,
+                                        width: '110px',
+                                        letterSpacing: '0.5px'
+                                    }}
+                                >
+                                    Delete
+                                </Button>
+                                <Button
                                     variant="outlined"
                                     size="small"
                                     style={{ fontSize: '0.7rem', borderRadius: '8px' }}
@@ -262,26 +275,11 @@ export default function MediaWatchlist() {
                                     {extraDetailsVisible && visibleMovieId === movie.id ? "Hide Details" : "Show Details"}
                                 </Button>
                                 {extraDetailsVisible && visibleMovieId === movie.id && (
-                                    <>
-                                        <PopUpModel
-                                            isVisible={extraDetailsVisible}
-                                            details={movieDetails}
-                                            onClose={() => setExtraDetailsVisible(false)}
-                                        />
-                                        <Button
-                                            onClick={e => deleteMediaWatchItem(e, movie.id)}
-                                            className="redButton"
-                                            sx={{
-                                                mt: 1,
-                                                mb: 1,
-                                                fontWeight: 700,
-                                                width: '110px',
-                                                letterSpacing: '0.5px'
-                                            }}
-                                        >
-                                            Delete
-                                        </Button>
-                                    </>
+                                    <PopUpModel
+                                        isVisible={extraDetailsVisible}
+                                        details={movieDetails}
+                                        onClose={() => setExtraDetailsVisible(false)}
+                                    />
                                 )}
                             </div>
                         )}
