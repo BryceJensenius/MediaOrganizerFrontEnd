@@ -486,7 +486,16 @@ export default function MediaHandler() {
                             <>
                                 <Box sx={{ mb: 1 }}>
                                     <span className="light-bold-green">Finish Date:</span> {mediaItem.finishDate}<br />
-                                    <span className="light-bold-green">Review:</span><br />{mediaItem.review}<br />
+                                    <span className="light-bold-green">Review:</span><br />
+                                    <Box sx={{ 
+                                        whiteSpace: 'normal',
+                                        wordWrap: 'break-word',
+                                        textAlign: 'left',
+                                        lineHeight: 1.6,
+                                        padding: '8px 0'
+                                    }}>
+                                        {mediaItem.review}
+                                    </Box>
                                 </Box>
                                 {!editingMedia && (
                                     <>
