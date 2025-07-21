@@ -9,6 +9,13 @@
     border-radius: 80px !important;
 }
 
+ /* Add Media and Add to watchlist papers style */
+.paper_boxes {
+    padding: 50px 30px;
+    width: min(80vw, 600px);
+    margin: 20px auto;
+}
+
 /* Custom Background Style */
 .backgroundStyle {
     background-color: rgba(243, 214, 174, 0.663);
@@ -31,9 +38,10 @@
     color: green;
 }
 
-.bold-light-blue {
+.media_organizer_title {
     font-weight: 600;
     color: rgb(255, 255, 255);
+
 }
 
 /* styles.css */

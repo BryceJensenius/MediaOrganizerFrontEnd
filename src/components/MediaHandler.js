@@ -5,7 +5,6 @@ import { Container, Paper, Button, Typography } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import '../styles/style.css';
 import PopUpModel from '../components/PopUpModel';
-import NavBar from "./NavBar.js";
 import { parseISO } from 'date-fns';
 
 // Date Picker Imports
@@ -14,7 +13,6 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 export default function MediaHandler() {
-    const paperStyle = { padding: '50px 30px', width: 600, margin: "20px auto" };
     const [name, setName] = useState('');
 
     const [finishDate, setFinishDate] = useState(new Date());
@@ -254,7 +252,7 @@ export default function MediaHandler() {
         >
             {/* Add Media Paper */}
             <Box component="form" noValidate autoComplete="off">
-                <Paper elevation={5} style={paperStyle}>
+                <Paper elevation={5} className='paper_boxes'>
                     <Typography 
                         variant="h4" 
                         component="h1"
@@ -273,7 +271,7 @@ export default function MediaHandler() {
                             id="outlined-basic-name" 
                             label="Media Name" 
                             variant="outlined" 
-                            fullWidth 
+                            fullWidth // Makes box fill to size of paper it is in
                             value={name}
                             onChange={(e) => {
                                 setName(e.target.value)
@@ -307,7 +305,7 @@ export default function MediaHandler() {
                             id="outlined-basic-rating"
                             label="Media Rating (0 - 10)"
                             variant="outlined"
-                            fullWidth
+                            fullWidth // Makes box fill to size of paper it is in
                             type="number"
                             inputProps={{
                                 min: 0,
@@ -339,7 +337,7 @@ export default function MediaHandler() {
                             id="outlined-basic-review" 
                             label="Media Review" 
                             variant="outlined" 
-                            fullWidth 
+                            fullWidth // Makes box fill to size of paper it is in
                             value={review}
                             onChange={(e) => setReview(e.target.value)}
                         />
@@ -372,7 +370,7 @@ export default function MediaHandler() {
             </Box>
 
             {/* Media List Paper */}
-            <Paper elevation={5} style={paperStyle}>
+            <Paper elevation={5} className='paper_boxes'>
                 <Typography 
                     variant="h4" 
                     component="h1"
@@ -409,8 +407,8 @@ export default function MediaHandler() {
                             <TextField 
                                 id="outlined-basic-name" 
                                 label="Name Filter" 
-                                variant="standard" 
-                                fullWidth 
+                                variant="standard"
+                                fullWidth // Makes box fill to size of paper it is in
                                 value={nameFilter}
                                 onChange={(e) => setNameFilter(e.target.value)}
                                 onKeyPress={handleFilterKeyPress}
@@ -418,8 +416,8 @@ export default function MediaHandler() {
                             <TextField 
                                 id="outlined-basic-name" 
                                 label="Rating Filter" 
-                                variant="standard" 
-                                fullWidth 
+                                variant="standard"
+                                fullWidth // Makes box fill to size of paper it is in
                                 value={ratingFilter}
                                 onChange={(e) => setRatingFilter(e.target.value)}
                                 onKeyPress={handleFilterKeyPress}

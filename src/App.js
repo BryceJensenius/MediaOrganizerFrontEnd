@@ -1,5 +1,4 @@
 import './App.css';
-import Appbar from './components/Appbar';
 import NavBar from './components/NavBar';
 import MediaHandler from './components/MediaHandler';
 import MediaWatchlist from './components/MediaWatchlist';

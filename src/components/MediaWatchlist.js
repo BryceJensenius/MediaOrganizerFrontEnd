@@ -8,7 +8,6 @@ import PopUpModel from './PopUpModel';
 import { useNavigate } from 'react-router-dom';
 
 export default function MediaWatchlist() {
-    const paperStyle = { padding: '50px 30px', width: 600, margin: "20px auto" };
     const [mediaName, setMediaName] = useState('');
     const [nameGuess, setNameGuess] = useState([]);
     const [watchlist, setWatchlist] = useState([]);
@@ -154,15 +153,15 @@ export default function MediaWatchlist() {
     }, []);
 
     return (
-        <Container maxWidth="mw" className='backgroundStyle'>
+        <Container className='backgroundStyle'>
             {/* Add to Watchlist */}
             <Box component="form" noValidate autoComplete="off">
-                <Paper elevation={5} style={paperStyle}>
+                <Paper elevation={5} className='paper_boxes'>
                     <Typography 
                         variant="h4" 
                         component="h1"
+                        className='paper_topo_title'
                         sx={{
-                            fontFamily: 'Arial, serif',
                             color: "black",
                             textAlign: "center",
                             marginBottom: 2,
@@ -209,7 +208,7 @@ export default function MediaWatchlist() {
             </Box>
 
             {/* Watchlist Display */}
-            <Paper elevation={5} style={paperStyle}>
+            <Paper elevation={5} className='paper_boxes'>
                 <Typography 
                     variant="h4" 
                     component="h1"

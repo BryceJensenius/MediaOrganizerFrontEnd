@@ -7,6 +7,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import '../styles/navStyle.css';
 
 const NavBar = () => {
   const [headingToggleState, setHeadingToggleState] = useState(false);
@@ -64,7 +65,7 @@ const NavBar = () => {
   };
 
   const getLinkClass = (path) => {
-    return location.pathname === path ? 'currentPageIcon' : '';
+    return location.pathname === path ? 'currentPageIcon sub_title' : 'sub_title';
   };
 
   return (
@@ -84,7 +85,7 @@ const NavBar = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <span className="bold-light-blue">Media Organizer</span>
+              <span className="main_title">Media Organizer</span>
             </Typography>
             <nav className="headNav" id="headNavElem" ref={headNavigationRef}>
               <ul id="navItems" ref={navItemsRef} style={{ display: 'flex', listStyle: 'none', margin: 0, padding: 0 }}>
