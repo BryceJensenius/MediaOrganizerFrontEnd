@@ -390,44 +390,44 @@ export default function MediaHandler() {
                     maxWidth="md" 
                     sx={{
                         display: 'flex', 
-                        flexDirection: 'column', 
-                        alignItems: '', 
-                        justifyContent: '', 
+                        flexDirection: 'column',
+                        alignItems: 'stretch',
+                        justifyContent: '',
+                        p: 0 // Set Padding to 0
                     }}
                 >
                     <Box
                         component="form"
-                        sx={{
-                            '& > :not(style)': { ml: 1, mb:3, width: '62ch' },
-                        }}
+                        sx={{ width: '100%' }}
                         noValidate
                         autoComplete="off"
                     >
-                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 1, width: '100%' }}> {/* Width 100% to fill container, gap for spacing between filter elements */}
                             <TextField 
-                                id="outlined-basic-name" 
-                                label="Name Filter" 
+                                id="outlined-basic-name-filter" 
+                                label="Name Filter" // Value that shows up in box initially
                                 variant="standard"
-                                fullWidth // Makes box fill to size of paper it is in
                                 value={nameFilter}
                                 onChange={(e) => setNameFilter(e.target.value)}
                                 onKeyPress={handleFilterKeyPress}
+                                sx={{ flex: 1, minWidth: 0 }}
                             />
                             <TextField 
-                                id="outlined-basic-name" 
-                                label="Rating Filter" 
+                                id="outlined-basic-rating-filter" 
+                                label="Rating Filter" // Value that shows up in box initially
                                 variant="standard"
-                                fullWidth // Makes box fill to size of paper it is in
                                 value={ratingFilter}
                                 onChange={(e) => setRatingFilter(e.target.value)}
                                 onKeyPress={handleFilterKeyPress}
+                                sx={{ flex: 1, minWidth: 0 }}
                             />
                             <Button 
-                            variant="contained" 
-                            className="greenButtonSearch" 
-                            onClick={handleFilterClick}
+                                variant="contained" 
+                                className="greenButtonSearch" 
+                                onClick={handleFilterClick}
+                                sx={{ whiteSpace: 'nowrap', minWidth: 0 }}
                             >
-                            Search
+                                Search
                             </Button>
                             {loading && <CircularProgress size={1} sx={{ ml: 2 }} />}
                         </Box>
