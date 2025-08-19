@@ -338,6 +338,9 @@ export default function MediaHandler() {
                             label="Media Review" 
                             variant="outlined" 
                             fullWidth // Makes box fill to size of paper it is in
+                            multiline // Text area rather than one line
+                            minRows={1} // default number of rows in text area
+                            maxRows={8} // max number of rows you can expand to 
                             value={review}
                             onChange={(e) => setReview(e.target.value)}
                         />
