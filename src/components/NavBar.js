@@ -99,6 +99,11 @@ const NavBar = () => {
                     Watchlist
                   </Link>
                 </li>
+                <li>
+                  <Link to="/boardGames" className={getLinkClass('/boardGames')} style={{ color: 'white', textDecoration: 'none' }}>
+                    Board Games
+                  </Link>
+                </li>
               </ul>
             </nav>
           </Toolbar>
