@@ -153,7 +153,10 @@ export default function MediaWatchlist() {
     }, []);
 
     return (
-        <Container className='backgroundStyle'>
+        <Container 
+            maxWidth="mw"
+            className='backgroundStyle'
+        >
             {/* Add to Watchlist */}
             <Box component="form" noValidate autoComplete="off">
                 <Paper elevation={5} className='paper_boxes'>
