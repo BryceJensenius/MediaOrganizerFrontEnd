@@ -31,7 +31,7 @@ export default function BoardGameHandler() {
     };
 
     return (
-        <Container maxWidth="sm" className="backgroundStyle">
+        <Container maxWidth="mw" className="backgroundStyle">
             <Paper elevation={5} className="paper_boxes" style={{ marginTop: 32 }}>
                 <Typography variant="h4" component="h1" sx={{ fontFamily: 'Arial, serif', color: 'black', textAlign: 'center', marginBottom: 2, fontWeight: '400' }}>
                     Board Game Search
@@ -63,7 +63,10 @@ export default function BoardGameHandler() {
                                 <Typography variant="body1" sx={{ mb: 1 }}><b>Average Playtime:</b> {result.averagePlaytime} min</Typography>
                                 <Typography variant="body1" sx={{ mb: 1 }}><b>Minimum Age:</b> {result.minAge}</Typography>
                                 <Typography variant="body1" sx={{ mb: 1 }}><b>Description:</b></Typography>
-                                <Typography variant="body2" sx={{ mb: 2, whiteSpace: 'pre-line', color: '#444' }}>{result.description}</Typography>
+                                <Typography variant="body2" sx={{ mb: 2, color: '#444' }}
+                                    component="div"
+                                    dangerouslySetInnerHTML={{ __html: result.description }}
+                                />
                             </Box>
                             <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
                                 {result.imageUrl && (
