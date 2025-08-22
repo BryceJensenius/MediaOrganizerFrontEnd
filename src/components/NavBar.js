@@ -84,7 +84,7 @@ const NavBar = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
               <span className="main_title">Media Organizer</span>
             </Typography>
             <nav className="headNav" id="headNavElem" ref={headNavigationRef}>
@@ -99,10 +99,15 @@ const NavBar = () => {
                     Watchlist
                   </Link>
                 </li>
-                <li >
+                <li  style={{ marginRight: '20px' }}>
                   <Link to="/boardGames" className={getLinkClass('/boardGames')} style={{ color: 'white', textDecoration: 'none' }}>
                     Board Games
                   </Link>
+                </li>
+                <li>
+                  <a href="https://club.brycejensenius.xyz/" target="_blank" rel="noopener noreferrer" className="nav-link">
+                    Club
+                  </a>
                 </li>
               </ul>
             </nav>
