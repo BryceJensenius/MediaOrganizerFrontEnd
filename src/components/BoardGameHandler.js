@@ -31,7 +31,7 @@ export default function BoardGameHandler() {
     };
 
     return (
-        <Container maxWidth="sm" className="backgroundStyle">
+        <Container maxWidth="mw" className="backgroundStyle">
             <Paper elevation={5} className="paper_boxes" style={{ marginTop: 32 }}>
                 <Typography variant="h4" component="h1" sx={{ fontFamily: 'Arial, serif', color: 'black', textAlign: 'center', marginBottom: 2, fontWeight: '400' }}>
                     Board Game Search

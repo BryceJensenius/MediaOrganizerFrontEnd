@@ -94,12 +94,12 @@ const NavBar = () => {
                     Media
                   </Link>
                 </li>
-                <li>
+                <li style={{ marginRight: '20px' }}>
                   <Link to="/watchlist" className={getLinkClass('/watchlist')} style={{ color: 'white', textDecoration: 'none' }}>
                     Watchlist
                   </Link>
                 </li>
-                <li>
+                <li >
                   <Link to="/boardGames" className={getLinkClass('/boardGames')} style={{ color: 'white', textDecoration: 'none' }}>
                     Board Games
                   </Link>
