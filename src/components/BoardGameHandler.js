@@ -31,7 +31,7 @@ export default function BoardGameHandler() {
     };
 
     return (
-        <Container maxWidth="mw" className="backgroundStyle">
+        <Container maxWidth="sm" className="backgroundStyle">
             <Paper elevation={5} className="paper_boxes" style={{ marginTop: 32 }}>
                 <Typography variant="h4" component="h1" sx={{ fontFamily: 'Arial, serif', color: 'black', textAlign: 'center', marginBottom: 2, fontWeight: '400' }}>
                     Board Game Search
@@ -54,8 +54,26 @@ export default function BoardGameHandler() {
                 {error && <Typography color="error" sx={{ mt: 2 }}>{error}</Typography>}
                 {result && (
                     <Paper elevation={2} sx={{ mt: 3, p: 2, background: '#e8f5e9' }}>
-                        <Typography variant="h6" sx={{ color: '#388e3c', fontWeight: 600 }}>Name: <span style={{ color: '#222' }}>{result.name}</span></Typography>
-                        <Typography variant="h6" sx={{ color: '#388e3c', fontWeight: 600 }}>Year Published: <span style={{ color: '#222' }}>{result.yearPublished}</span></Typography>
+                        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 3 }}>
+                            <Box sx={{ flex: 1 }}>
+                                <Typography variant="h6" sx={{ color: '#388e3c', fontWeight: 600 }}>Name: <span style={{ color: '#222' }}>{result.name}</span></Typography>
+                                <Typography variant="body1" sx={{ mb: 1 }}><b>Year Published:</b> {result.yearPublished}</Typography>
+                                <Typography variant="body1" sx={{ mb: 1 }}><b>Object ID:</b> {result.objectId}</Typography>
+                                <Typography variant="body1" sx={{ mb: 1 }}><b>Players:</b> {result.minPlayers} - {result.maxPlayers}</Typography>
+                                <Typography variant="body1" sx={{ mb: 1 }}><b>Average Playtime:</b> {result.averagePlaytime} min</Typography>
+                                <Typography variant="body1" sx={{ mb: 1 }}><b>Minimum Age:</b> {result.minAge}</Typography>
+                                <Typography variant="body1" sx={{ mb: 1 }}><b>Description:</b></Typography>
+                                <Typography variant="body2" sx={{ mb: 2, whiteSpace: 'pre-line', color: '#444' }}>{result.description}</Typography>
+                            </Box>
+                            <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                                {result.imageUrl && (
+                                    <img src={result.imageUrl} alt={result.name} style={{ maxWidth: '220px', borderRadius: 8, boxShadow: '0 2px 8px #bbb' }} />
+                                )}
+                                {result.thumbnailUrl && (
+                                    <img src={result.thumbnailUrl} alt={result.name + ' thumbnail'} style={{ maxWidth: '120px', borderRadius: 8, boxShadow: '0 2px 8px #bbb' }} />
+                                )}
+                            </Box>
+                        </Box>
                     </Paper>
                 )}
             </Paper>
