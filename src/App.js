@@ -3,6 +3,7 @@ import NavBar from './components/NavBar';
 import MediaHandler from './components/MediaHandler';
 import MediaWatchlist from './components/MediaWatchlist';
 import BoardGameHandler from './components/BoardGameHandler';
+import AboutMe from './components/AboutMe';
 import { HashRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 //stop stealing my code with inspect 
 //     .-''''''-.
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<MediaHandler />} />
           <Route path="/watchlist" element={<MediaWatchlist />} />
           <Route path="/boardGames" element={<BoardGameHandler />} />
+          <Route path="/aboutMe" element={<AboutMe />} />
         </Routes>
       </Router>
     </div>
