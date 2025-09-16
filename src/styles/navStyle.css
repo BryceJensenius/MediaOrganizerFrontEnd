@@ -13,3 +13,46 @@
     padding: 3px;
     border: 3px double rgba(0, 0, 0, 0.2);
 }
+
+
+/* ----- Hamburger menu button for Phone ----- */
+@media (min-width: 801px) {
+  .hamburger {
+    display: none !important;
+  }
+}
+
+/* ----- Small screens (default) ----- */
+#navItems {
+  display: none;        /* hidden by default */
+  flex-wrap: wrap;
+  background: #1976d2;
+  width: 100%;
+  padding: 10px 0;
+}
+
+#navItems.show {
+  display: flex;         /* shown when hamburger is clicked */
+}
+
+#navItems li {
+  text-align: center;
+  margin: 5px 0;
+  flex: 1 0 33.33%;       /* 3 per row */
+}
+
+/* ----- Large screens (desktop) ----- */
+@media (min-width: 801px) {
+  #navItems {
+    display: flex !important;
+    flex-wrap: nowrap;
+    background: none;
+    padding: 0;
+  }
+
+  #navItems li {
+    flex: none;
+    width: auto;
+    margin-right: 20px;
+  }
+}

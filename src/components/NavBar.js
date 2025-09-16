@@ -72,7 +72,7 @@ const NavBar = () => {
     <>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
-          <Toolbar>
+          <Toolbar ref={headerRef}>
             <IconButton
               size="small"
               edge="start"
@@ -81,6 +81,7 @@ const NavBar = () => {
               sx={{ mr: 2 }}
               onClick={handleToggleClick}
               ref={toggleButtonRef}
+              className="hamburger"
             >
               <MenuIcon />
             </IconButton>
@@ -88,7 +89,7 @@ const NavBar = () => {
               <span className="main_title">Project Hub</span>
             </Typography>
             <nav className="headNav" id="headNavElem" ref={headNavigationRef}>
-              <ul id="navItems" ref={navItemsRef} style={{ display: 'flex', listStyle: 'none', margin: 0, padding: 0 }}>
+              <ul id="navItems" ref={navItemsRef} style={{ listStyle: 'none', margin: 0, padding: 0 }}>
                 <li style={{ marginRight: '20px' }}>
                   <Link to="/aboutMe" className={getLinkClass('/aboutMe')} style={{ color: 'white', textDecoration: 'none' }}>
                     About Me
