@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -7,10 +7,13 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import Button from '@mui/material/Button';
 import '../styles/navStyle.css';
+import { isAuthenticated, clearSessionToken } from '../utils/auth';
 
 const NavBar = () => {
   const [headingToggleState, setHeadingToggleState] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleButtonRef = useRef(null);
   const navItemsRef = useRef(null);
@@ -18,6 +21,18 @@ const NavBar = () => {
   const headerRef = useRef(null);
 
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check authentication status on mount and route change
+    setIsLoggedIn(isAuthenticated());
+  }, [location]);
+
+  const handleLogout = () => { // Redirect to login page after logging out
+    clearSessionToken();
+    setIsLoggedIn(false);
+    navigate('/');
+  };
 
   useEffect(() => {
     const handleNavVisibility = () => {
@@ -68,6 +83,9 @@ const NavBar = () => {
     return location.pathname === path ? 'currentPageIcon sub_title' : 'sub_title';
   };
 
+  // Only show nav items if user is logged in or on login page
+  const shouldShowNav = isLoggedIn || location.pathname === '/';
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -88,35 +106,56 @@ const NavBar = () => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
               <span className="main_title">Project Hub</span>
             </Typography>
-            <nav className="headNav" id="headNavElem" ref={headNavigationRef}>
-              <ul id="navItems" ref={navItemsRef} style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-                <li style={{ marginRight: '20px' }}>
-                  <Link to="/aboutMe" className={getLinkClass('/aboutMe')} style={{ color: 'white', textDecoration: 'none' }}>
-                    About Me
-                  </Link>
-                </li>
-                <li style={{ marginRight: '20px' }}>
-                  <Link to="/" className={getLinkClass('/')} style={{ color: 'white', textDecoration: 'none' }}>
-                    Media
-                  </Link>
-                </li>
-                <li style={{ marginRight: '20px' }}>
-                  <Link to="/watchlist" className={getLinkClass('/watchlist')} style={{ color: 'white', textDecoration: 'none' }}>
-                    Watchlist
-                  </Link>
-                </li>
-                <li  style={{ marginRight: '20px' }}>
-                  <Link to="/boardGames" className={getLinkClass('/boardGames')} style={{ color: 'white', textDecoration: 'none' }}>
-                    Board Games
-                  </Link>
-                </li>
-                <li>
-                  <a href="https://club.brycejensenius.xyz/" target="_blank" rel="noopener noreferrer" className="nav-link">
-                    Club
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            {shouldShowNav && (
+              <nav className="headNav" id="headNavElem" ref={headNavigationRef}>
+                <ul id="navItems" ref={navItemsRef} style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', alignItems: 'center' }}>
+                  {isLoggedIn && (
+                    <>
+                      <li style={{ marginRight: '20px' }}>
+                        <Link to="/aboutMe" className={getLinkClass('/aboutMe')} style={{ color: 'white', textDecoration: 'none' }}>
+                          About Me
+                        </Link>
+                      </li>
+                      <li style={{ marginRight: '20px' }}>
+                        <Link to="/media" className={getLinkClass('/media')} style={{ color: 'white', textDecoration: 'none' }}>
+                          Media
+                        </Link>
+                      </li>
+                      <li style={{ marginRight: '20px' }}>
+                        <Link to="/watchlist" className={getLinkClass('/watchlist')} style={{ color: 'white', textDecoration: 'none' }}>
+                          Watchlist
+                        </Link>
+                      </li>
+                      <li style={{ marginRight: '20px' }}>
+                        <Link to="/boardGames" className={getLinkClass('/boardGames')} style={{ color: 'white', textDecoration: 'none' }}>
+                          Board Games
+                        </Link>
+                      </li>
+                      <li style={{ marginRight: '20px' }}>
+                        <a href="https://club.brycejensenius.xyz/" target="_blank" rel="noopener noreferrer" className="nav-link">
+                          Club
+                        </a>
+                      </li>
+                      <li>
+                        <Button 
+                          onClick={handleLogout}
+                          sx={{ 
+                            color: 'white',
+                            textTransform: 'none',
+                            fontSize: '1rem',
+                            '&:hover': {
+                              backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                            }
+                          }}
+                        >
+                          Logout
+                        </Button>
+                      </li>
+                    </>
+                  )}
+                </ul>
+              </nav>
+            )}
           </Toolbar>
         </AppBar>
       </Box>
