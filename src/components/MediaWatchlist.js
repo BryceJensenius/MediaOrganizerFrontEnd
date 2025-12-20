@@ -6,6 +6,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import '../styles/style.css';
 import PopUpModel from './PopUpModel';
 import { useNavigate } from 'react-router-dom';
+import { authenticatedFetch } from '../utils/auth';
 
 export default function MediaWatchlist() {
     const [mediaName, setMediaName] = useState('');
@@ -29,7 +30,7 @@ export default function MediaWatchlist() {
     // Fetch all movies in the watchlist
     const getWatchlist = () => {
         setLoading(true);
-        fetch("https://api.brycejensenius.xyz/mediaWatch/getAll")
+        authenticatedFetch("https://api.brycejensenius.xyz/mediaWatch/getAll")
             .then(res => res.json())
             .then((result) => {
                 setWatchlist(result);
@@ -47,9 +48,8 @@ export default function MediaWatchlist() {
             setNameGuess([]);
             return;
         }
-        fetch(`https://api.brycejensenius.xyz/api/omdb/getTitles/${title}`, {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
+        authenticatedFetch(`https://api.brycejensenius.xyz/api/omdb/getTitles/${title}`, {
+            method: "GET"
         })
         .then((res) => {
             if(!res.ok){
@@ -80,9 +80,8 @@ export default function MediaWatchlist() {
         }
         console.log("Adding movie: %s", mediaName);
         setLoading(true);
-        fetch("https://api.brycejensenius.xyz/mediaWatch/add", {
+        authenticatedFetch("https://api.brycejensenius.xyz/mediaWatch/add", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ mediaName })
         })
         .then(res => res.text())
@@ -101,7 +100,7 @@ export default function MediaWatchlist() {
 
     // Show more details for a movie
     const getMovieDetails = (title, id) => {
-        fetch(`https://api.brycejensenius.xyz/api/omdb/getFullInfo/${title}`)
+        authenticatedFetch(`https://api.brycejensenius.xyz/api/omdb/getFullInfo/${title}`)
             .then((res) => {
                 if (!res.ok) {
                     throw new Error('Failed to fetch movie details');
@@ -136,9 +135,8 @@ export default function MediaWatchlist() {
         e.preventDefault();
         console.log("Deleting Media Watch Item:", id);
 
-        fetch("https://api.brycejensenius.xyz/mediaWatch/delete/" + id, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" }
+        authenticatedFetch("https://api.brycejensenius.xyz/mediaWatch/delete/" + id, {
+            method: "DELETE"
         })
         .then(() => {
             getWatchlist(); // Refresh the list after deletion

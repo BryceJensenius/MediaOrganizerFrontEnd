@@ -37,7 +37,7 @@ export default function LoginPage() {
 
         try {
             const response = await fetch(`https://api.brycejensenius.xyz${endpoint}`, {
-                method: 'GET',
+                method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json'
                 },

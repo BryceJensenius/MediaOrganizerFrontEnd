@@ -6,6 +6,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import '../styles/style.css';
 import PopUpModel from '../components/PopUpModel';
 import { parseISO } from 'date-fns';
+import { authenticatedFetch } from '../utils/auth';
 
 // Date Picker Imports
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -42,10 +43,27 @@ export default function MediaHandler() {
     };
     {/*Sorting Stuff*/}
 
-    const getMedia = () => {
+    const getMedia = (filterRequest = null) => {
         console.log("Fetching media items...");
         setLoading(true);
-        fetch("https://api.brycejensenius.xyz/mediaItems/getAll")
+        
+        // Build URL with query parameters
+        let url = "https://api.brycejensenius.xyz/mediaItems/getAll";
+        
+        if (filterRequest) {
+            const params = new URLSearchParams(); // Request Parameters are used to pass in, add all 4 filters/sorts
+            if (filterRequest.nameFilter) params.append('nameFilter', filterRequest.nameFilter);
+            if (filterRequest.ratingFilter) params.append('ratingFilter', filterRequest.ratingFilter);
+            if (filterRequest.sortType) params.append('sortType', filterRequest.sortType);
+            if (filterRequest.sortOrder) params.append('sortOrder', filterRequest.sortOrder);
+            
+            const queryString = params.toString();
+            if (queryString) {
+                url += `?${queryString}`;
+            }
+        }
+        
+        authenticatedFetch(url, { method: "GET" })
             .then(res => {
                 console.log("Received response from /mediaItems/getAll:", res);
                 return res.json()
@@ -84,9 +102,8 @@ export default function MediaHandler() {
             setEditing(false);
         }
 
-        fetch("https://api.brycejensenius.xyz/mediaItems/add", {
+        authenticatedFetch("https://api.brycejensenius.xyz/mediaItems/add", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(mediaItem)
         }).then((res) => {
             console.log("Response from /mediaItems/add:", res);
@@ -105,9 +122,8 @@ export default function MediaHandler() {
         e.preventDefault();
         console.log("Deleting Media Item:", id);
 
-        fetch("https://api.brycejensenius.xyz/mediaItems/delete/" + id, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" }
+        authenticatedFetch("https://api.brycejensenius.xyz/mediaItems/delete/" + id, {
+            method: "DELETE"
         })
         .then(() => {
             getMedia(); // Refresh the list after deletion
@@ -147,14 +163,13 @@ export default function MediaHandler() {
 
     const handleFilterClick = (e) => {
         e.preventDefault();
-        setLoading(true);
-        fetch("https://api.brycejensenius.xyz/mediaItems/setFilter", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nameFilter: nameFilter, ratingFilter: ratingFilter, sortType: sortType, sortOrder: sortOrder})
-        }).then(() => {
-            getMedia();
-        });
+        const filterRequest = {
+            nameFilter: nameFilter,
+            ratingFilter: ratingFilter,
+            sortType: sortType,
+            sortOrder: sortOrder
+        };
+        getMedia(filterRequest);
     };
 
     const handleFilterKeyPress = (e) => {
@@ -165,9 +180,8 @@ export default function MediaHandler() {
 
     {/* Clicking into Media */}
     const handleEditClick = (id) => {
-        fetch(`https://api.brycejensenius.xyz/mediaItems/getById/${id}`, {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
+        authenticatedFetch(`https://api.brycejensenius.xyz/mediaItems/getById/${id}`, {
+            method: "GET"
         })
         .then(res => res.json())
         .then((result) => {
@@ -219,9 +233,8 @@ export default function MediaHandler() {
         if (title.trim() === '') {
             return;
         }
-        fetch(`https://api.brycejensenius.xyz/api/omdb/getTitles/${title}`, {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
+        authenticatedFetch(`https://api.brycejensenius.xyz/api/omdb/getTitles/${title}`, {
+            method: "GET"
         })
         .then((res) => {
             if(!res.ok){//.ok is a projerty of response indicating the status of the return code, 200, 400...
