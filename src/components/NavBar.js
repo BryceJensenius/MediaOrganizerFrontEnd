@@ -109,10 +109,24 @@ const NavBar = () => {
             {shouldShowNav && (
               <nav className="headNav" id="headNavElem" ref={headNavigationRef}>
                 <ul id="navItems" ref={navItemsRef} style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', alignItems: 'center' }}>
+                  {!isLoggedIn && (
+                    <>
+                      <li style={{ marginRight: '20px' }}>
+                        <a href="https://club.brycejensenius.xyz/" target="_blank" rel="noopener noreferrer" className="nav-link">
+                          Club
+                        </a>
+                      </li>
+                      <li style={{ marginRight: '20px' }}>
+                        <Link to="/loginpage" className={getLinkClass('/loginpage')} style={{ color: 'white', textDecoration: 'none' }}>
+                          Login
+                        </Link>
+                      </li>
+                    </>
+                  )}
                   {isLoggedIn && (
                     <>
                       <li style={{ marginRight: '20px' }}>
-                        <Link to="/aboutMe" className={getLinkClass('/aboutMe')} style={{ color: 'white', textDecoration: 'none' }}>
+                        <Link to="/" className={getLinkClass('/')} style={{ color: 'white', textDecoration: 'none' }}>
                           About Me
                         </Link>
                       </li>

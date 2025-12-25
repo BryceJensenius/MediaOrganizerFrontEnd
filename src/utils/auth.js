@@ -1,5 +1,7 @@
 // Authentication utility functions
 
+const TOKEN_EXPIRY_HOURS = 24;
+
 /**
  * Get the stored session token
  * @returns {string|null} The session token or null if not found
@@ -9,11 +11,13 @@ export const getSessionToken = () => {
 };
 
 /**
- * Set the session token
+ * Set the session token with expiration timestamp
  * @param {string} token - The session token to store
  */
 export const setSessionToken = (token) => {
+    const expiryTime = new Date().getTime() + (TOKEN_EXPIRY_HOURS * 60 * 60 * 1000); // 24 hours in milliseconds
     localStorage.setItem('sessionToken', token);
+    localStorage.setItem('tokenExpiry', expiryTime.toString());
 };
 
 /**
@@ -21,15 +25,42 @@ export const setSessionToken = (token) => {
  */
 export const clearSessionToken = () => {
     localStorage.removeItem('sessionToken');
+    localStorage.removeItem('tokenExpiry');
+};
+
+/**
+ * Check if the token has expired
+ * @returns {boolean} True if token has expired
+ */
+const isTokenExpired = () => {
+    const expiryTime = localStorage.getItem('tokenExpiry');
+    if (!expiryTime) {
+        return true; // No expiry time means token is invalid
+    }
+    
+    const currentTime = new Date().getTime();
+    return currentTime > parseInt(expiryTime);
 };
 
 /**
  * Check if user is authenticated
- * @returns {boolean} True if user has a session token
+ * @returns {boolean} True if user has a valid, non-expired session token
  */
 export const isAuthenticated = () => {
     const token = getSessionToken();
-    return token !== null && token !== 'null' && token.trim() !== '';
+    
+    // Check if token exists and is valid
+    if (!token || token === 'null' || token.trim() === '') {
+        return false;
+    }
+    
+    // Check if token has expired
+    if (isTokenExpired()) {
+        clearSessionToken(); // Auto-clear expired token
+        return false;
+    }
+    
+    return true;
 };
 
 /**
@@ -39,6 +70,12 @@ export const isAuthenticated = () => {
  * @returns {Promise} The fetch promise
  */
 export const authenticatedFetch = (url, options = {}) => {
+    // Check if token is still valid before making request
+    if (!isAuthenticated()) {
+        // Token is expired or invalid, reject the request
+        return Promise.reject(new Error('Session expired. Please log in again.'));
+    }
+    
     const token = getSessionToken();
     
     const headers = {

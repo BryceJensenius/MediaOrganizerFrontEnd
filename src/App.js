@@ -24,11 +24,11 @@ function App() {
       <Router>
         <NavBar />
         <Routes>
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/" element={<AboutMe />} />
+          <Route path="/loginpage" element={<LoginPage />} />
           <Route path="/media" element={<ProtectedRoute><MediaHandler /></ProtectedRoute>} />
           <Route path="/watchlist" element={<ProtectedRoute><MediaWatchlist /></ProtectedRoute>} />
           <Route path="/boardGames" element={<ProtectedRoute><BoardGameHandler /></ProtectedRoute>} />
-          <Route path="/aboutMe" element={<ProtectedRoute><AboutMe /></ProtectedRoute>} />
         </Routes>
       </Router>
     </div>

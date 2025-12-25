@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container, Paper, Button, Typography } from '@mui/material';
+import { setSessionToken, isAuthenticated } from '../utils/auth';
 import '../styles/style.css';
 
 export default function LoginPage() {
@@ -15,8 +16,7 @@ export default function LoginPage() {
 
     // Check if user is already logged in
     useEffect(() => {
-        const token = localStorage.getItem('sessionToken');
-        if (token) {
+        if (isAuthenticated()) {
             navigate('/media');
         }
     }, [navigate]);
@@ -52,8 +52,7 @@ export default function LoginPage() {
             
             if (sessionToken && sessionToken !== 'null' && sessionToken.trim() !== '') {
                 // Store the session token
-                localStorage.setItem('sessionToken', sessionToken);
-                // Redirect to MediaHandler page
+                setSessionToken(sessionToken);
                 navigate('/media');
             } else {
                 setError(isSignup 
