@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Container, Paper, Button, Typography } from '@mui/material';
+import { Container, Paper, Button, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Slider, InputAdornment, IconButton, Tooltip } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
+import AssistantIcon from '@mui/icons-material/Assistant';
 import '../styles/style.css';
 import PopUpModel from '../components/PopUpModel';
 import { parseISO } from 'date-fns';
@@ -29,6 +30,16 @@ export default function MediaHandler() {
     const [nameGuess, setNameGuess] = useState([]);
     const [movieDetails, setMovieDetails] = useState([]);//movie you clicked into
     const [extraDetailsVisible, setExtraDetailsVisible] = useState(false);//imdb details pop up status
+    
+    {/* Review Assistant States */}
+    const [reviewAssistOpen, setReviewAssistOpen] = useState(false);
+    const [reviewQuestions, setReviewQuestions] = useState([
+        { id: 1, question: 'Overall enjoyment', rating: 3 },
+        { id: 2, question: 'Story/Plot quality', rating: 3 },
+        { id: 3, question: 'Characters/Acting', rating: 3 },
+        { id: 4, question: 'Pacing', rating: 3 },
+        { id: 5, question: 'Would recommend to others', rating: 3 }
+    ]);
 
     {/*Sorting Stuff*/}
     const [sortType, setSortType] = useState('name'); // Default sort by name
@@ -258,6 +269,36 @@ export default function MediaHandler() {
 
     {/* End Guessing Stuff */}
 
+    {/* Review Assistant Functions */}
+    const handleOpenReviewAssist = () => {
+        setReviewAssistOpen(true);
+    };
+
+    const handleCloseReviewAssist = () => {
+        setReviewAssistOpen(false);
+    };
+
+    const handleQuestionRatingChange = (id, value) => {
+        setReviewQuestions(prevQuestions =>
+            prevQuestions.map(q =>
+                q.id === id ? { ...q, rating: value } : q
+            )
+        );
+    };
+
+    const handleReviewAssistDone = () => {
+        const ratings = reviewQuestions.map(q => q.rating);
+        const average = ratings.reduce((sum, r) => sum + r, 0) / ratings.length;
+        
+        // Convert 1-5 scale to 0-10 scale
+        const scaledRating = (average / 5) * 10;
+        const roundedRating = Math.round(scaledRating * 10) / 10;
+        
+        setRating(roundedRating);
+        setReviewAssistOpen(false);
+    };
+    {/* End Review Assistant Functions */}
+
     return (
         <Container 
             maxWidth="mw" 
@@ -324,6 +365,26 @@ export default function MediaHandler() {
                                 min: 0,
                                 max: 10,
                                 step: 0.1,
+                            }}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <Tooltip title="Rating Assistant">
+                                            <IconButton
+                                                onClick={handleOpenReviewAssist}
+                                                edge="end"
+                                                sx={{
+                                                    color: '#2e7d32',
+                                                    '&:hover': {
+                                                        backgroundColor: 'rgba(46, 125, 50, 0.08)'
+                                                    }
+                                                }}
+                                            >
+                                                <AssistantIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </InputAdornment>
+                                ),
                             }}
                             value={rating}
                             onChange={e => {
@@ -546,6 +607,68 @@ export default function MediaHandler() {
                     </Paper>
                 ))}
             </Paper>
+
+            {/* Review Assistant Dialog */}
+            <Dialog 
+                open={reviewAssistOpen} 
+                onClose={handleCloseReviewAssist}
+                maxWidth="sm"
+                fullWidth
+            >
+                <DialogTitle sx={{ 
+                    bgcolor: '#2e7d32', 
+                    color: 'white',
+                    fontWeight: 600
+                }}>
+                    Rating Assistant
+                </DialogTitle>
+                <DialogContent sx={{ mt: 2, px: 3 }}>
+                    {reviewQuestions.map((q) => (
+                        <Box key={q.id} sx={{ mb: 3 }}>
+                            <Typography variant="body2" sx={{ mb: 1, fontWeight: 500, color: '#333' }}>
+                                {q.question}
+                            </Typography>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                                <Slider
+                                    value={q.rating}
+                                    onChange={(e, value) => handleQuestionRatingChange(q.id, value)}
+                                    min={1}
+                                    max={5}
+                                    step={1}
+                                    marks
+                                    valueLabelDisplay="auto"
+                                    sx={{
+                                        color: '#2e7d32',
+                                        flex: 1
+                                    }}
+                                />
+                                <Typography 
+                                    variant="body2" 
+                                    sx={{ 
+                                        minWidth: '20px', 
+                                        fontWeight: 600,
+                                        color: '#2e7d32'
+                                    }}
+                                >
+                                    {q.rating}
+                                </Typography>
+                            </Box>
+                        </Box>
+                    ))}
+                </DialogContent>
+                <DialogActions sx={{ p: 2, gap: 1 }}>
+                    <Button onClick={handleCloseReviewAssist} variant="outlined" color="inherit">
+                        Cancel
+                    </Button>
+                    <Button 
+                        onClick={handleReviewAssistDone} 
+                        variant="contained" 
+                        className="greenButton"
+                    >
+                        Done
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Container>
     );
 }
