@@ -34,7 +34,7 @@ export default function AboutMe() {
   };
 
   const sectionHeader = (Icon, title) => (
-    <Stack direction="row" alignItems="center" spacing={1} mb={2}>
+    <Stack direction="row" alignItems="center" justifyContent="center" spacing={1} mb={2}>
       <Icon sx={{ 
         color: "#4caf50", 
         fontSize: 30,
@@ -99,7 +99,7 @@ export default function AboutMe() {
           }}
         >
           <Typography variant="h2" fontWeight={700} gutterBottom sx={{ letterSpacing: "1px" }}>
-            About Me
+            Bryce Jensenius
           </Typography>
           <Typography
             variant="h5"
@@ -159,10 +159,9 @@ export default function AboutMe() {
 
         {/* Work Experience */}
         <Box mb={3}>
-          {sectionHeader(WorkIcon, "Work Experience")}
-          
           <Fade in={true} timeout={1200}>
             <Paper sx={cardStyle}>
+              {sectionHeader(WorkIcon, "Work Experience")}
               <Typography fontWeight={600} fontSize="1.1rem">
                 PTS Cloud Software Engineer — John Deere
               </Typography>
@@ -224,65 +223,66 @@ export default function AboutMe() {
 
         {/* Projects */}
         <Box mb={3}>
-          {sectionHeader(CodeIcon, "Highlighted Projects")}
-          
           <Fade in={true} timeout={1500}>
             <Paper sx={cardStyle}>
-              <Typography fontWeight={600} fontSize="1.1rem">
-                Tradelens.ai
-              </Typography>
-              <Typography variant="caption" color="text.secondary" display="block" mb={2}>
-                Senior Design Project — Fall 2025
-              </Typography>
-              <Typography mb={0.5}>
-                • Proposed and led a 6-person team building an AI-driven financial analysis platform; owned planning, standups, task delegation, and delivery
-              </Typography>
-              <Typography mb={0.5}>
-                • Designed and built backend systems for scalable, low-latency data ingestion using web scraping, external APIs, caching, and concurrency
-              </Typography>
-              <Typography>
-                • Owned CI/CD and deployment, configuring GitLab runners, and automated testing to auto build and deploy the frontend and backend on merge
-              </Typography>
-            </Paper>
-          </Fade>
-
-          <Fade in={true} timeout={1600}>
-            <Paper sx={cardStyle}>
-              <Typography fontWeight={600} fontSize="1.1rem">
-                EC2 Image Builder Automation
-              </Typography>
-              <Typography variant="caption" color="text.secondary" display="block" mb={2}>
-                John Deere — Summer 2025
-              </Typography>
-              <Typography mb={0.5}>
-                • Designed and deployed a fully automated AMI distribution system using EC2 Image Builder, Terraform, and AWS Inspector
-              </Typography>
-              <Typography mb={0.5}>
-                • Standardized pipelines across 13 operating systems with modular components for software installation, testing, and security validation
-              </Typography>
-              <Typography>
-                • Consolidated image creation, scanning, and distribution into centralized pipelines, delivering secure AMIs to thousands of accounts and regions with minimal support effort
-              </Typography>
-            </Paper>
-          </Fade>
-
-          <Fade in={true} timeout={1700}>
-            <Paper sx={cardStyle}>
-              <Typography fontWeight={600} fontSize="1.1rem">
-                Media Organizer Web App
-              </Typography>
-              <Typography variant="caption" color="text.secondary" display="block" mb={2}>
-                Personal Project — 2025
-              </Typography>
-              <Typography mb={0.5}>
-                • Built a full-stack movie/TV organizer with an authenticated Spring Boot Java backend (deployed on EC2 with RDS) and React frontend hosted on GitHub pages
-              </Typography>
-              <Typography mb={0.5}>
-                • Implemented CI/CD with GitHub actions for automated deployment of backend
-              </Typography>
-              <Typography>
-                • Integrated external APIs for movie/show details and built review functionality for users
-              </Typography>
+              {sectionHeader(CodeIcon, "Highlighted Projects")}
+                <Paper className="project-paper">
+                  <Typography fontWeight={600} fontSize="1.1rem">
+                    Tradelens.ai
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary" display="block" mb={2}>
+                    Senior Design Project — Fall 2025
+                  </Typography>
+                  <Typography mb={0.5} className="bullet-point-list-elements">
+                    Proposed and led a 6-person team building an AI-driven financial analysis platform; owned planning, standups, task delegation, and delivery
+                  </Typography>
+                  <div className="between-bullet-points"></div>
+                  <Typography mb={0.5} className="bullet-point-list-elements">
+                    Designed and built backend systems for scalable, low-latency data ingestion using web scraping, external APIs, caching, and concurrency
+                  </Typography>
+                  <div className="between-bullet-points"></div>
+                  <Typography marginBottom="20px" className="bullet-point-list-elements">
+                    Owned CI/CD and deployment, configuring GitLab runners, and automated testing to auto build and deploy the frontend and backend on merge
+                  </Typography>
+                </Paper>
+                <Paper className="project-paper">
+                  <Typography fontWeight={600} fontSize="1.1rem">
+                    EC2 Image Builder Automation
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary" display="block" mb={2}>
+                    John Deere — Summer 2025
+                  </Typography>
+                  <Typography mb={0.5} className="bullet-point-list-elements">
+                    Designed and deployed a fully automated AMI distribution system using EC2 Image Builder, Terraform, and AWS Inspector
+                  </Typography>
+                  <div className="between-bullet-points"></div>
+                  <Typography mb={0.5} className="bullet-point-list-elements">
+                    Standardized pipelines across 13 operating systems with modular components for software installation, testing, and security validation
+                  </Typography>
+                  <div className="between-bullet-points"></div>
+                  <Typography marginBottom="20px" className="bullet-point-list-elements">
+                    Consolidated image creation, scanning, and distribution into centralized pipelines, delivering secure AMIs to thousands of accounts and regions with minimal support effort
+                  </Typography>
+                </Paper>
+                <Paper className="project-paper">
+                  <Typography fontWeight={600} fontSize="1.1rem">
+                    Media Organizer Web App
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary" display="block" mb={2}>
+                    Personal Project — 2025
+                  </Typography>
+                  <Typography mb={0.5} className="bullet-point-list-elements">
+                    Built a full-stack movie/TV organizer with an authenticated Spring Boot Java backend (deployed on EC2 with RDS) and React frontend hosted on GitHub pages
+                  </Typography>
+                  <div className="between-bullet-points"></div>
+                  <Typography mb={0.5} className="bullet-point-list-elements">
+                    Implemented CI/CD with GitHub actions for automated deployment of backend
+                  </Typography>
+                  <div className="between-bullet-points"></div>
+                  <Typography className="bullet-point-list-elements">
+                    Integrated external APIs for movie/show details and built review functionality for users
+                  </Typography>
+                </Paper>
             </Paper>
           </Fade>
         </Box>
