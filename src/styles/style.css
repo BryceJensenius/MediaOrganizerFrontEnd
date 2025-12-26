@@ -28,6 +28,35 @@
     color: rgb(1, 104, 1);
 }
 
+/* Section separators (AboutMe) */
+.section-header {
+    width: 100%;
+    margin: 0 auto 18px auto;
+    margin-top: 40px;
+}
+
+.section-header-title {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section-header-bar {
+    height: 6px;
+    width: 100%;
+    margin: 8px auto 0 auto;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #4caf50, #2e7d32);
+    box-shadow: 0 10px 22px rgba(76, 175, 80, 0.18);
+}
+
+.section-header-line {
+    height: 1px;
+    width: min(820px, 92%);
+    margin: 10px auto 0 auto;
+    background: rgba(13, 70, 15, 0.25);
+}
+
 .light-bold {
     font-weight: 400;
     color: rgb(0, 0, 0);
@@ -155,21 +184,36 @@
 .bullet-point-list-elements {
     font-size: 1rem;
     line-height: 1.5;
-    transition: all 0.3s ease;
+    position: relative;
+    padding-left: 18px;
+    padding-right: 6px;
+    border-radius: 10px;
+    transition: transform 0.2s ease, color 0.2s ease, background-color 0.2s ease, font-weight 0.2s ease;
+}
+
+.bullet-point-list-elements::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #4caf50;
+    font-weight: 700;
 }
 
 .between-bullet-points {
     margin-top: 10px;
     margin-bottom: 10px;
     border-top: 1.5px solid #0d460f;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .bullet-point-list-elements:hover {
     color: #0b2e0c;
-    transform: scale(1.02); /* Slightly enlarge the text */
-    /* horiz_offset vert_offset blur_radius color */
-    text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.3); /* Add a shadow for a popping effect */
-    transition: all 0.3s ease; /* Smooth transition for the hover effect */
+    font-weight: 500;
+    background-color: rgba(76, 175, 79, 0.119);
+    z-index: 2000;
+    transform: translateY(-3px);
 }
 
 .project-paper {
@@ -178,4 +222,123 @@
     background-color: #deede1 !important;
     border-radius: 50px !important;
     border: 2px solid #0d460f;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1) !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.project-paper::before { /* Top border styling */
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, #4caf50, #2e7d32);
+}
+
+.project-paper:hover {
+    transform: translateY(-2px);
+    border-color: #4caf50;
+    box-shadow: 0 12px 28px rgba(76, 175, 80, 0.3) !important;
+}
+
+/* Smaller bubble variant for short content (e.g., Education) */
+.project-paper-compact {
+    padding: 14px 18px;
+    border-radius: 28px !important;
+}
+
+.project-paper:last-child {
+    margin-bottom: 0;
+}
+
+/* Skills bubbles */
+.skills-groups {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    justify-content: center;
+}
+
+@media (min-width: 700px) {
+    .skills-groups {
+        grid-template-columns: repeat(2, minmax(320px, 440px));
+    }
+}
+
+.skills-group {
+    background-color: rgba(222, 237, 225, 0.55);
+    border: 2px solid #0d460f;
+    border-radius: 26px;
+    padding: 14px 16px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    width: 100%;
+}
+
+.skills-group-center {
+    grid-column: 1 / -1;
+    justify-self: center;
+    max-width: 440px;
+}
+
+.skills-group::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #4caf50, #2e7d32);
+}
+
+.skills-group:hover {
+    transform: translateY(-2px);
+    border-color: #4caf50;
+    box-shadow: 0 12px 28px rgba(76, 175, 80, 0.22);
+}
+
+.skills-group-title {
+    font-weight: 700;
+    color: #0b2e0c;
+    margin: 2px 0 12px 0;
+}
+
+.skills-chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skills-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(13, 70, 15, 0.55);
+    background-color: rgba(255, 255, 255, 0.85);
+    color: #0b2e0c;
+    font-weight: 500;
+    line-height: 1;
+    transition: transform 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
+    user-select: none;
+}
+
+.skills-chip:hover {
+    transform: translateY(-2px);
+    border-color: #4caf50;
+    background-color: rgba(76, 175, 79, 0.14);
+}
+
+.between-sections-divider {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-top: 2px solid #0d460f;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }

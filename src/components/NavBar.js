@@ -89,7 +89,7 @@ const NavBar = () => {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+        <AppBar position="static" sx={{ background: 'linear-gradient(135deg,#4caf50,#2e7d32)' }}>
           <Toolbar ref={headerRef}>
             <IconButton
               size="small"
