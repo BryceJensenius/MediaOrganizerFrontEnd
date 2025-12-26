@@ -34,11 +34,12 @@ export default function MediaHandler() {
     {/* Review Assistant States */}
     const [reviewAssistOpen, setReviewAssistOpen] = useState(false);
     const [reviewQuestions, setReviewQuestions] = useState([
-        { id: 1, question: 'Overall enjoyment', rating: 3 },
-        { id: 2, question: 'Story/Plot quality', rating: 3 },
-        { id: 3, question: 'Characters/Acting', rating: 3 },
-        { id: 4, question: 'Pacing', rating: 3 },
-        { id: 5, question: 'Would recommend to others', rating: 3 }
+        { id: 1, question: 'Characters/Acting', rating: 3 },
+        { id: 3, question: 'Character development', rating: 3 },
+        { id: 2, question: 'Sound/Music', rating: 3 },
+        { id: 4, question: 'Visuals/Effects', rating: 3 },
+        { id: 5, question: 'Story/Plot quality', rating: 3 },
+        { id: 6, question: 'Overall enjoyment', rating: 3 }
     ]);
 
     {/*Sorting Stuff*/}
