@@ -161,10 +161,6 @@ export default function MediaHandler() {
     };
 
     useEffect(() => {
-        getMedia();
-    }, []);
-
-    useEffect(() => {
         const selectedMovieName = localStorage.getItem('selectedMovieName');
         if (selectedMovieName) {
             setName(selectedMovieName);
