@@ -24,7 +24,7 @@ export default function MediaWatchlist() {
         // Save the movie name to localStorage
         localStorage.setItem('selectedMovieName', movieName);
         // Navigate to the MediaHandler page
-        navigate('/');
+        navigate('/media');
     };
 
     // Fetch all movies in the watchlist
