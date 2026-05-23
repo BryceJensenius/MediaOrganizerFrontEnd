@@ -36,7 +36,7 @@ export default function LoginPage() {
         const authRequest = { username, password };
 
         try {
-            const response = await fetch(`https://api.tradelens.space${endpoint}`, {
+            const response = await fetch(`https://tradelens.space${endpoint}`, {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json'

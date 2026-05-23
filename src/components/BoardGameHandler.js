@@ -20,7 +20,7 @@ export default function BoardGameHandler() {
             return;
         }
         try {
-            const res = await fetch(`https://api.tradelens.space/boardGame/${encodeURIComponent(gameName)}`);
+            const res = await fetch(`https://tradelens.space/media-organizer/boardGame/${encodeURIComponent(gameName)}`);
             if (!res.ok) throw new Error('Game not found');
             const data = await res.json();
             setResult(data);
