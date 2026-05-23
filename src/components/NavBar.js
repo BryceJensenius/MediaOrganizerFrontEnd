@@ -112,7 +112,7 @@ const NavBar = () => {
                   {!isLoggedIn && (
                     <>
                       <li style={{ marginRight: '20px' }}>
-                        <a href="https://club.brycejensenius.xyz/" target="_blank" rel="noopener noreferrer" className="nav-link">
+                        <a href="https://club.tradelens.space/" target="_blank" rel="noopener noreferrer" className="nav-link">
                           Club
                         </a>
                       </li>
@@ -146,7 +146,7 @@ const NavBar = () => {
                         </Link>
                       </li>
                       <li style={{ marginRight: '20px' }}>
-                        <a href="https://club.brycejensenius.xyz/" target="_blank" rel="noopener noreferrer" className="nav-link">
+                        <a href="https://club.tradelens.space/" target="_blank" rel="noopener noreferrer" className="nav-link">
                           Club
                         </a>
                       </li>

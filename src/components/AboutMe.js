@@ -421,7 +421,7 @@ export default function AboutMe() {
                   fontWeight={600} 
                   fontSize="1.1rem" 
                   component="a" 
-                  href="https://www.brycejensenius.xyz/#/loginpage" 
+                  href="https://www.tradelens.space/#/loginpage" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   sx={{ textDecoration: "none", color: "inherit", "&:hover": { color: "#4caf50" } }}

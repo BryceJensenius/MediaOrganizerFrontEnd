@@ -60,7 +60,7 @@ export default function MediaHandler() {
         setLoading(true);
         
         // Build URL with query parameters
-        let url = "https://api.brycejensenius.xyz/mediaItems/getAll";
+        let url = "https://api.tradelens.space/mediaItems/getAll";
         
         if (filterRequest) {
             const params = new URLSearchParams(); // Request Parameters are used to pass in, add all 4 filters/sorts
@@ -114,7 +114,7 @@ export default function MediaHandler() {
             setEditing(false);
         }
 
-        authenticatedFetch("https://api.brycejensenius.xyz/mediaItems/add", {
+        authenticatedFetch("https://api.tradelens.space/mediaItems/add", {
             method: "POST",
             body: JSON.stringify(mediaItem)
         }).then((res) => {
@@ -134,7 +134,7 @@ export default function MediaHandler() {
         e.preventDefault();
         console.log("Deleting Media Item:", id);
 
-        authenticatedFetch("https://api.brycejensenius.xyz/mediaItems/delete/" + id, {
+        authenticatedFetch("https://api.tradelens.space/mediaItems/delete/" + id, {
             method: "DELETE"
         })
         .then(() => {
@@ -188,7 +188,7 @@ export default function MediaHandler() {
 
     {/* Clicking into Media */}
     const handleEditClick = (id) => {
-        authenticatedFetch(`https://api.brycejensenius.xyz/mediaItems/getById/${id}`, {
+        authenticatedFetch(`https://api.tradelens.space/mediaItems/getById/${id}`, {
             method: "GET"
         })
         .then(res => res.json())
@@ -204,7 +204,7 @@ export default function MediaHandler() {
     };
 
     const getMovieDetails = (title, id) => {
-        fetch(`https://api.brycejensenius.xyz/api/omdb/getFullInfo/${title}`)
+        fetch(`https://api.tradelens.space/api/omdb/getFullInfo/${title}`)
             .then((res) => {
                 if (!res.ok) {
                     throw new Error('Failed to fetch movie details');
@@ -241,7 +241,7 @@ export default function MediaHandler() {
         if (title.trim() === '') {
             return;
         }
-        authenticatedFetch(`https://api.brycejensenius.xyz/api/omdb/getTitles/${title}`, {
+        authenticatedFetch(`https://api.tradelens.space/api/omdb/getTitles/${title}`, {
             method: "GET"
         })
         .then((res) => {
