@@ -30,7 +30,7 @@ export default function MediaWatchlist() {
     // Fetch all movies in the watchlist
     const getWatchlist = () => {
         setLoading(true);
-        authenticatedFetch("https://api.tradelens.space/mediaWatch/getAll")
+        authenticatedFetch("https://tradelens.space/media-organizer/mediaWatch/getAll")
             .then(res => res.json())
             .then((result) => {
                 setWatchlist(result);
@@ -48,7 +48,7 @@ export default function MediaWatchlist() {
             setNameGuess([]);
             return;
         }
-        authenticatedFetch(`https://api.tradelens.space/api/omdb/getTitles/${title}`, {
+        authenticatedFetch(`https://tradelens.space/media-organizer/api/omdb/getTitles/${title}`, {
             method: "GET"
         })
         .then((res) => {
@@ -80,7 +80,7 @@ export default function MediaWatchlist() {
         }
         console.log("Adding movie: %s", mediaName);
         setLoading(true);
-        authenticatedFetch("https://api.tradelens.space/mediaWatch/add", {
+        authenticatedFetch("https://tradelens.space/media-organizer/mediaWatch/add", {
             method: "POST",
             body: JSON.stringify({ mediaName })
         })
@@ -100,7 +100,7 @@ export default function MediaWatchlist() {
 
     // Show more details for a movie
     const getMovieDetails = (title, id) => {
-        authenticatedFetch(`https://api.tradelens.space/api/omdb/getFullInfo/${title}`)
+        authenticatedFetch(`https://tradelens.space/media-organizer/api/omdb/getFullInfo/${title}`)
             .then((res) => {
                 if (!res.ok) {
                     throw new Error('Failed to fetch movie details');
@@ -135,7 +135,7 @@ export default function MediaWatchlist() {
         e.preventDefault();
         console.log("Deleting Media Watch Item:", id);
 
-        authenticatedFetch("https://api.tradelens.space/mediaWatch/delete/" + id, {
+        authenticatedFetch("https://tradelens.space/media-organizer/mediaWatch/delete/" + id, {
             method: "DELETE"
         })
         .then(() => {
