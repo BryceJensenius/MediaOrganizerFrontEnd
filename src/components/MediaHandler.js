@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { Container, Paper, Button, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Slider, InputAdornment, IconButton, Tooltip } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
 import AssistantIcon from '@mui/icons-material/Assistant';
-import '../styles/style.css';
+import { Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, InputAdornment, Paper, Slider, Tooltip, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import TextField from '@mui/material/TextField';
+import { useEffect, useState } from 'react';
 import PopUpModel from '../components/PopUpModel';
-import { parseISO } from 'date-fns';
+import '../styles/style.css';
 import { authenticatedFetch } from '../utils/auth';
 
 // Date Picker Imports
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 export default function MediaHandler() {
     const [name, setName] = useState('');

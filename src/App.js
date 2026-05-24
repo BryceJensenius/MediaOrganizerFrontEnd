@@ -6,7 +6,7 @@ import BoardGameHandler from './components/BoardGameHandler';
 import AboutMe from './components/AboutMe';
 import LoginPage from './components/LoginPage';
 import ProtectedRoute from './components/ProtectedRoute';
-import { HashRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
 //stop stealing my code with inspect 
 //     .-''''''-.
 //   .'          '.

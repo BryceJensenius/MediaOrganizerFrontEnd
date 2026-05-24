@@ -1,20 +1,19 @@
-import {
-  Box,
-  Avatar,
-  Paper,
-  Typography,
-  Stack,
-  Fade,
-  Grow,
-  Zoom
-} from "@mui/material";
+import BuildIcon from "@mui/icons-material/Build";
+import CodeIcon from "@mui/icons-material/Code";
+import EmailIcon from "@mui/icons-material/Email";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import PhoneIcon from "@mui/icons-material/Phone";
 import SchoolIcon from "@mui/icons-material/School";
 import WorkIcon from "@mui/icons-material/Work";
-import CodeIcon from "@mui/icons-material/Code";
-import BuildIcon from "@mui/icons-material/Build";
-import EmailIcon from "@mui/icons-material/Email";
-import PhoneIcon from "@mui/icons-material/Phone";
-import GitHubIcon from "@mui/icons-material/GitHub";
+import {
+  Avatar,
+  Box,
+  Fade,
+  Paper,
+  Stack,
+  Typography,
+  Zoom
+} from "@mui/material";
 import BryceOnly from "../images/BryceOnly.jpg";
 import TeamPicture from "../images/GroupPictureSmiling.jpg";
 import "../styles/style.css";
