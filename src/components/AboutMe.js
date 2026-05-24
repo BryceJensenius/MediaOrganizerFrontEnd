@@ -19,20 +19,6 @@ import TeamPicture from "../images/GroupPictureSmiling.jpg";
 import "../styles/style.css";
 
 export default function AboutMe() {
-  const cardStyle = {
-    mb: 5,
-    p: 4,
-    borderRadius: 3,
-    boxShadow: "0 6px 15px rgba(0,0,0,0.15)",
-    borderTop: "6px solid #4caf50",
-    backgroundColor: "#fff",
-    transition: "all 0.3s ease-in-out",
-    "&:hover": {
-      transform: "translateY(-8px)",
-      boxShadow: "0 12px 28px rgba(76, 175, 80, 0.3)",
-      borderTop: "6px solid #66bb6a",
-    },
-  };
 
   const sectionHeader = (Icon, title) => (
     <Box className="section-header">
@@ -56,17 +42,6 @@ export default function AboutMe() {
       <div className="section-header-line" />
     </Box>
   );
-
-  const jobBox = {
-    padding: '0 10px',
-    borderLeft: '3px solid transparent',
-    transition: 'all 0.3s ease',
-    "&:hover": {
-      borderLeft: '3px solid #4caf50',
-      paddingLeft: '15px',
-      backgroundColor: 'rgba(76, 175, 80, 0.05)',
-    }
-  };
 
   const contactLinkStyle = {
     color: "#fff",

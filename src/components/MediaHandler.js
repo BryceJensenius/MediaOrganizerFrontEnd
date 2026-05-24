@@ -30,7 +30,7 @@ export default function MediaHandler() {
     const [movieDetails, setMovieDetails] = useState([]);//movie you clicked into
     const [extraDetailsVisible, setExtraDetailsVisible] = useState(false);//imdb details pop up status
     
-    {/* Review Assistant States */}
+    // Review Assistant state
     const [reviewAssistOpen, setReviewAssistOpen] = useState(false);
     const [reviewQuestions, setReviewQuestions] = useState([
         { id: 1, question: 'Characters/Acting', rating: 3 },
@@ -41,7 +41,7 @@ export default function MediaHandler() {
         { id: 6, question: 'Overall enjoyment', rating: 3 }
     ]);
 
-    {/*Sorting Stuff*/}
+    // Sorting state
     const [sortType, setSortType] = useState('name'); // Default sort by name
     const [sortOrder, setSortOrder] = useState('asc'); // Default sort order
 
@@ -52,7 +52,7 @@ export default function MediaHandler() {
     const handleOrderChange = (e) => {
         setSortOrder(e.target.value);
     };
-    {/*Sorting Stuff*/}
+    // Sorting state end
 
     const getMedia = (filterRequest = null) => {
         console.log("Fetching media items...");
@@ -145,7 +145,7 @@ export default function MediaHandler() {
     };
 
     const toggleReviewVisibility = (id) => {
-        {/*Cant go into other elements while editing one*/}
+        // Prevent opening other items while editing one.
 
         //if extra details are visible and you click a different item, close details
         //this makes it so it stays there when toggle toggle with more details because I have no idea how to stop that
@@ -185,7 +185,7 @@ export default function MediaHandler() {
         }
     };
 
-    {/* Clicking into Media */}
+    // Clicking into media
     const handleEditClick = (id) => {
         authenticatedFetch(`https://tradelens.space/media-organizer/mediaItems/getById/${id}`, {
             method: "GET"
@@ -225,7 +225,7 @@ export default function MediaHandler() {
             });
     };       
 
-    {/* End Clicking into Media */}
+    // End clicking into media
     
     const cancelEdit = () => {
         setEditing(false);
@@ -235,7 +235,7 @@ export default function MediaHandler() {
         setReview('');
     };
 
-    {/* Guessing Stuff */}
+    // Guessing helpers
     const getClosestNames = (title) => {
         if (title.trim() === '') {
             return;
@@ -263,9 +263,9 @@ export default function MediaHandler() {
     };
 
 
-    {/* End Guessing Stuff */}
+    // End guessing helpers
 
-    {/* Review Assistant Functions */}
+    // Review Assistant functions
     const handleOpenReviewAssist = () => {
         setReviewAssistOpen(true);
     };
@@ -293,7 +293,7 @@ export default function MediaHandler() {
         setRating(roundedRating);
         setReviewAssistOpen(false);
     };
-    {/* End Review Assistant Functions */}
+    // End review assistant functions
 
     return (
         <Container 
@@ -627,7 +627,7 @@ export default function MediaHandler() {
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                                 <Slider
                                     value={q.rating}
-                                    onChange={(e, value) => handleQuestionRatingChange(q.id, value)}
+                                    onChange={(_, value) => handleQuestionRatingChange(q.id, value)}
                                     min={1}
                                     max={5}
                                     step={1}
