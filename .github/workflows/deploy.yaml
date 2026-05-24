@@ -21,7 +21,7 @@ jobs:
         shell: bash
         run: |
           npm install
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "BryceJensenius"
+          git config user.email "brycejensenius@gmail.com"
           npm run build
           npm run deploy
