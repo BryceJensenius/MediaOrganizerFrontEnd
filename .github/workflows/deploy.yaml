@@ -6,6 +6,9 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     name: Deploy to Github Pages
@@ -17,7 +20,8 @@ jobs:
       - name: Build application
         shell: bash
         run: |
-          npm install gh-pages --save-dev
           npm install
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           npm run build
           npm run deploy
