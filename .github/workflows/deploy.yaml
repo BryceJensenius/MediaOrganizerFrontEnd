@@ -13,6 +13,8 @@ jobs:
   deploy:
     name: Deploy to Github Pages
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -23,5 +25,6 @@ jobs:
           npm install
           git config user.name "BryceJensenius"
           git config user.email "brycejensenius@gmail.com"
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           npm run build
           npm run deploy
