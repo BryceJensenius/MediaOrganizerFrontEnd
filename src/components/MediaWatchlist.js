@@ -30,7 +30,7 @@ export default function MediaWatchlist() {
     // Fetch all movies in the watchlist
     const getWatchlist = () => {
         setLoading(true);
-        authenticatedFetch("https://tradelens.space/media-organizer/mediaWatch/getAll")
+        authenticatedFetch('/mediaWatch/getAll')
             .then(res => res.json())
             .then((result) => {
                 setWatchlist(result);
@@ -48,7 +48,7 @@ export default function MediaWatchlist() {
             setNameGuess([]);
             return;
         }
-        authenticatedFetch(`https://tradelens.space/media-organizer/api/omdb/getTitles/${title}`, {
+        authenticatedFetch(`/api/omdb/getTitles/${title}`, {
             method: "GET"
         })
         .then((res) => {
@@ -80,7 +80,7 @@ export default function MediaWatchlist() {
         }
         console.log("Adding movie: %s", mediaName);
         setLoading(true);
-        authenticatedFetch("https://tradelens.space/media-organizer/mediaWatch/add", {
+        authenticatedFetch('/mediaWatch/add', {
             method: "POST",
             body: JSON.stringify({ mediaName })
         })
@@ -100,7 +100,7 @@ export default function MediaWatchlist() {
 
     // Show more details for a movie
     const getMovieDetails = (title, id) => {
-        authenticatedFetch(`https://tradelens.space/media-organizer/api/omdb/getFullInfo/${title}`)
+        authenticatedFetch(`/api/omdb/getFullInfo/${title}`)
             .then((res) => {
                 if (!res.ok) {
                     throw new Error('Failed to fetch movie details');
@@ -135,7 +135,7 @@ export default function MediaWatchlist() {
         e.preventDefault();
         console.log("Deleting Media Watch Item:", id);
 
-        authenticatedFetch("https://tradelens.space/media-organizer/mediaWatch/delete/" + id, {
+        authenticatedFetch(`/mediaWatch/delete/${id}`, {
             method: "DELETE"
         })
         .then(() => {

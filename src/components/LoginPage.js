@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container, Paper, Button, Typography } from '@mui/material';
-import { setSessionToken, isAuthenticated } from '../utils/auth';
+import { buildApiUrl, setSessionToken, isAuthenticated } from '../utils/auth';
 import '../styles/style.css';
 
 export default function LoginPage() {
@@ -36,7 +36,7 @@ export default function LoginPage() {
         const authRequest = { username, password };
 
         try {
-            const response = await fetch(`https://tradelens.space/media-organizer${endpoint}`, {
+            const response = await fetch(buildApiUrl(endpoint), {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json'

@@ -1,6 +1,32 @@
 // Authentication utility functions
 
 const TOKEN_EXPIRY_HOURS = 24;
+const LOCAL_HOSTNAMES = new Set(['localhost', '127.0.0.1']);
+const DEFAULT_REMOTE_API_BASE_URL = 'https://tradelens.space/media-organizer';
+
+const normalizeBaseUrl = (url) => url.replace(/\/+$/, '');
+
+const getApiBaseUrl = () => {
+    const configuredBaseUrl = process.env.REACT_APP_API_BASE_URL?.trim();
+    if (configuredBaseUrl) {
+        return normalizeBaseUrl(configuredBaseUrl);
+    }
+
+    if (typeof window !== 'undefined' && !LOCAL_HOSTNAMES.has(window.location.hostname)) {
+        return normalizeBaseUrl(`${window.location.origin}/media-organizer`);
+    }
+
+    return DEFAULT_REMOTE_API_BASE_URL;
+};
+
+export const buildApiUrl = (path = '') => {
+    if (/^https?:\/\//i.test(path)) {
+        return path;
+    }
+
+    const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+    return `${getApiBaseUrl()}${normalizedPath}`;
+};
 
 /**
  * Get the stored session token
@@ -90,7 +116,7 @@ export const authenticatedFetch = (url, options = {}) => {
         // headers['Session-Token'] = token;
     }
     
-    return fetch(url, {
+    return fetch(buildApiUrl(url), {
         ...options,
         headers
     });

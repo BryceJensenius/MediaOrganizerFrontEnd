@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container, Paper, Button, Typography } from '@mui/material';
+import { buildApiUrl } from '../utils/auth';
 
 export default function BoardGameHandler() {
     const [gameName, setGameName] = useState('');
@@ -20,7 +21,7 @@ export default function BoardGameHandler() {
             return;
         }
         try {
-            const res = await fetch(`https://tradelens.space/media-organizer/boardGame/${encodeURIComponent(gameName)}`);
+            const res = await fetch(buildApiUrl(`/boardGame/${encodeURIComponent(gameName)}`));
             if (!res.ok) throw new Error('Game not found');
             const data = await res.json();
             setResult(data);
